@@ -181,6 +181,11 @@ export default function App() {
           <div className="text-center mt-6 text-slate-500 text-sm">
             Export your pathway from Bland.ai and upload the JSON file
           </div>
+          <div className="text-center mt-4">
+            <a href="https://cameronobrien.dev" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-400 text-sm transition-colors">
+              a cameronobrien.dev project
+            </a>
+          </div>
         </div>
       </div>
     )
