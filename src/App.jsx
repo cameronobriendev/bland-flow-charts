@@ -169,14 +169,6 @@ export default function App() {
             {/* Paste JSON */}
             <PasteArea onPaste={handlePaste} />
 
-            {/* Demo button */}
-            <button
-              onClick={loadDemo}
-              className="w-full mt-4 py-3 px-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl transition-colors font-medium"
-            >
-              Load Demo Pathway
-            </button>
-
             {/* Error message */}
             {error && (
               <div className="mt-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-sm">
