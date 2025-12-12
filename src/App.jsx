@@ -36,9 +36,10 @@ export default function App() {
   const [isEditingName, setIsEditingName] = useState(false)
   const [editNameValue, setEditNameValue] = useState('')
   const [shareModalName, setShareModalName] = useState('')
+  const [isOwner, setIsOwner] = useState(true)
 
   // Load pathway from JSON
-  const loadPathway = useCallback((json, name = 'Uploaded Pathway') => {
+  const loadPathway = useCallback((json, name = 'Uploaded Pathway', owner = true) => {
     try {
       setError(null)
       const { nodes: parsedNodes, edges: parsedEdges, stats: parsedStats } = parseBlandPathway(json)
@@ -49,6 +50,7 @@ export default function App() {
       setOriginalPathway(json)
       setShowUploader(false)
       setSelectedNode(null)
+      setIsOwner(owner)
     } catch (err) {
       setError(err.message)
     }
@@ -67,7 +69,7 @@ export default function App() {
           return res.json()
         })
         .then((data) => {
-          loadPathway(data.pathway, data.name || 'Shared Pathway')
+          loadPathway(data.pathway, data.name || 'Shared Pathway', false)
           setLoadingShared(false)
         })
         .catch((err) => {
@@ -323,30 +325,34 @@ export default function App() {
             ) : (
               <div className="flex items-center gap-1.5 group">
                 <h1 className="font-semibold text-slate-800">{pathwayName}</h1>
-                <button
-                  onClick={startEditingName}
-                  className="text-slate-300 hover:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity"
-                  title="Edit name"
-                >
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-                </button>
+                {isOwner && (
+                  <button
+                    onClick={startEditingName}
+                    className="text-slate-300 hover:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                    title="Edit name"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                  </button>
+                )}
               </div>
             )}
             <p className="text-xs text-slate-500">{stats?.totalNodes} nodes, {stats?.totalEdges} edges</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={handleShare}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors flex items-center gap-2"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-            Share
-          </button>
+          {isOwner && (
+            <button
+              onClick={handleShare}
+              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              Share
+            </button>
+          )}
           <button
             onClick={handleReset}
             className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors"
