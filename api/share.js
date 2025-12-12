@@ -1,34 +1,24 @@
 import { put } from '@vercel/blob';
 
-export default async function handler(req) {
+export default async function handler(req, res) {
   // Handle CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    });
+    return res.status(200).end();
   }
 
   if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    // Expects: { pathway: {...}, name: "Pathway Name" }
-    const { pathway, name } = await req.json();
+    const { pathway, name } = req.body;
 
     if (!pathway || !pathway.nodes || !pathway.edges) {
-      return new Response(JSON.stringify({ error: 'Invalid pathway data' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return res.status(400).json({ error: 'Invalid pathway data' });
     }
 
     const id = crypto.randomUUID().slice(0, 8);
@@ -39,22 +29,13 @@ export default async function handler(req) {
       contentType: 'application/json',
     });
 
-    return new Response(JSON.stringify({
+    return res.status(200).json({
       id,
       url: `https://buildhelp.dev?id=${id}`,
       blobUrl: blob.url,
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
     });
   } catch (error) {
     console.error('Share error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to save pathway' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(500).json({ error: 'Failed to save pathway' });
   }
 }
