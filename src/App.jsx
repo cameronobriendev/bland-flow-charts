@@ -33,6 +33,9 @@ export default function App() {
   const [shareLoading, setShareLoading] = useState(false)
   const [shareCopied, setShareCopied] = useState(false)
   const [loadingShared, setLoadingShared] = useState(false)
+  const [isEditingName, setIsEditingName] = useState(false)
+  const [editNameValue, setEditNameValue] = useState('')
+  const [shareModalName, setShareModalName] = useState('')
 
   // Load pathway from JSON
   const loadPathway = useCallback((json, name = 'Uploaded Pathway') => {
@@ -102,33 +105,63 @@ export default function App() {
     }
   }, [loadPathway])
 
-  // Handle share
-  const handleShare = useCallback(async () => {
+  // Open share modal (shows name confirmation first)
+  const handleShare = useCallback(() => {
+    if (!originalPathway) return
+    setShareModalName(pathwayName)
+    setShareUrl('')
+    setShareCopied(false)
+    setShareLoading(false)
+    setShowShareModal(true)
+  }, [originalPathway, pathwayName])
+
+  // Generate share link (called after name confirmation)
+  const generateShareLink = useCallback(async () => {
     if (!originalPathway) return
 
     setShareLoading(true)
-    setShowShareModal(true)
-    setShareUrl('')
-    setShareCopied(false)
 
     try {
       const res = await fetch('/api/share', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pathway: originalPathway, name: pathwayName }),
+        body: JSON.stringify({ pathway: originalPathway, name: shareModalName }),
       })
 
       if (!res.ok) throw new Error('Failed to generate share link')
 
       const data = await res.json()
       setShareUrl(data.url)
+      // Update the main pathway name if changed in modal
+      if (shareModalName !== pathwayName) {
+        setPathwayName(shareModalName)
+      }
     } catch (err) {
       setError('Failed to generate share link')
       setShowShareModal(false)
     } finally {
       setShareLoading(false)
     }
-  }, [originalPathway, pathwayName])
+  }, [originalPathway, shareModalName, pathwayName])
+
+  // Start editing name in header
+  const startEditingName = useCallback(() => {
+    setEditNameValue(pathwayName)
+    setIsEditingName(true)
+  }, [pathwayName])
+
+  // Save edited name
+  const saveEditedName = useCallback(() => {
+    if (editNameValue.trim()) {
+      setPathwayName(editNameValue.trim())
+    }
+    setIsEditingName(false)
+  }, [editNameValue])
+
+  // Cancel editing name
+  const cancelEditingName = useCallback(() => {
+    setIsEditingName(false)
+  }, [])
 
   // Copy share URL
   const copyShareUrl = useCallback(() => {
@@ -263,7 +296,44 @@ export default function App() {
             </svg>
           </div>
           <div>
-            <h1 className="font-semibold text-slate-800">{pathwayName}</h1>
+            {isEditingName ? (
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={editNameValue}
+                  onChange={(e) => setEditNameValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') saveEditedName()
+                    if (e.key === 'Escape') cancelEditingName()
+                  }}
+                  autoFocus
+                  className="px-2 py-1 text-sm font-semibold text-slate-800 border border-blue-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button onClick={saveEditedName} className="text-green-600 hover:text-green-700">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </button>
+                <button onClick={cancelEditingName} className="text-slate-400 hover:text-slate-600">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5 group">
+                <h1 className="font-semibold text-slate-800">{pathwayName}</h1>
+                <button
+                  onClick={startEditingName}
+                  className="text-slate-300 hover:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                  title="Edit name"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </button>
+              </div>
+            )}
             <p className="text-xs text-slate-500">{stats?.totalNodes} nodes, {stats?.totalEdges} edges</p>
           </div>
         </div>
@@ -342,7 +412,7 @@ export default function App() {
                 <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
                 <p className="text-slate-500">Generating share link...</p>
               </div>
-            ) : (
+            ) : shareUrl ? (
               <>
                 <p className="text-sm text-slate-600 mb-4">
                   Anyone with this link can view your pathway:
@@ -368,6 +438,34 @@ export default function App() {
                 <p className="text-xs text-slate-400 mt-3">
                   This link never expires.
                 </p>
+              </>
+            ) : (
+              <>
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                    Pathway Name
+                  </label>
+                  <input
+                    type="text"
+                    value={shareModalName}
+                    onChange={(e) => setShareModalName(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && shareModalName.trim()) generateShareLink()
+                    }}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Enter a name for your pathway"
+                  />
+                  <p className="text-xs text-slate-400 mt-1.5">
+                    This name will be shown to anyone who views the shared link.
+                  </p>
+                </div>
+                <button
+                  onClick={generateShareLink}
+                  disabled={!shareModalName.trim()}
+                  className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-300 disabled:cursor-not-allowed text-white rounded-lg font-medium text-sm transition-colors"
+                >
+                  Generate Share Link
+                </button>
               </>
             )}
           </div>
