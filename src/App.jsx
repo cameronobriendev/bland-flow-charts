@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import {
   ReactFlow,
   Controls,
@@ -13,25 +13,10 @@ import '@xyflow/react/dist/style.css'
 import BlandNode from './components/BlandNode'
 import NodeDetailPanel from './components/NodeDetailPanel'
 import StatsPanel from './components/StatsPanel'
-import { parseBlandPathway, sanitizePathway } from './utils/blandParser'
+import { parseBlandPathway } from './utils/blandParser'
 
 const nodeTypes = {
   blandNode: BlandNode,
-}
-
-// Demo pathway for initial state
-const DEMO_PATHWAY = {
-  nodes: [
-    { id: '1', data: { name: 'Start', prompt: 'Hello! How can I help you today?', isStart: true }, type: 'Default', position: { x: 250, y: 0 } },
-    { id: '2', data: { name: 'Qualify Lead', prompt: 'Are you looking to buy or sell?', extractVars: [['intent', 'string', 'User buying or selling intent']] }, type: 'Default', position: { x: 250, y: 150 } },
-    { id: '3', data: { name: 'Book Appointment', prompt: 'Great! Let me check our calendar...', condition: 'User wants to proceed' }, type: 'Webhook', position: { x: 100, y: 300 } },
-    { id: '4', data: { name: 'Not Interested', prompt: 'No problem, have a great day!' }, type: 'End Call', position: { x: 400, y: 300 } },
-  ],
-  edges: [
-    { id: 'e1-2', source: '1', target: '2' },
-    { id: 'e2-3', source: '2', target: '3', label: 'Interested' },
-    { id: 'e2-4', source: '2', target: '4', label: 'Not interested' },
-  ],
 }
 
 export default function App() {
@@ -42,6 +27,12 @@ export default function App() {
   const [showUploader, setShowUploader] = useState(true)
   const [error, setError] = useState(null)
   const [pathwayName, setPathwayName] = useState('')
+  const [originalPathway, setOriginalPathway] = useState(null)
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [shareUrl, setShareUrl] = useState('')
+  const [shareLoading, setShareLoading] = useState(false)
+  const [shareCopied, setShareCopied] = useState(false)
+  const [loadingShared, setLoadingShared] = useState(false)
 
   // Load pathway from JSON
   const loadPathway = useCallback((json, name = 'Uploaded Pathway') => {
@@ -52,12 +43,36 @@ export default function App() {
       setEdges(parsedEdges)
       setStats(parsedStats)
       setPathwayName(name)
+      setOriginalPathway(json)
       setShowUploader(false)
       setSelectedNode(null)
     } catch (err) {
       setError(err.message)
     }
   }, [setNodes, setEdges])
+
+  // Load from URL param on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const id = params.get('id')
+
+    if (id) {
+      setLoadingShared(true)
+      fetch(`/api/load?id=${id}`)
+        .then((res) => {
+          if (!res.ok) throw new Error('Pathway not found')
+          return res.json()
+        })
+        .then((data) => {
+          loadPathway(data.pathway, data.name || 'Shared Pathway')
+          setLoadingShared(false)
+        })
+        .catch((err) => {
+          setError('Failed to load shared pathway: ' + err.message)
+          setLoadingShared(false)
+        })
+    }
+  }, [loadPathway])
 
   // Handle file upload
   const handleFileUpload = useCallback((e) => {
@@ -87,10 +102,40 @@ export default function App() {
     }
   }, [loadPathway])
 
-  // Load demo
-  const loadDemo = useCallback(() => {
-    loadPathway(DEMO_PATHWAY, 'Demo Pathway')
-  }, [loadPathway])
+  // Handle share
+  const handleShare = useCallback(async () => {
+    if (!originalPathway) return
+
+    setShareLoading(true)
+    setShowShareModal(true)
+    setShareUrl('')
+    setShareCopied(false)
+
+    try {
+      const res = await fetch('/api/share', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pathway: originalPathway, name: pathwayName }),
+      })
+
+      if (!res.ok) throw new Error('Failed to generate share link')
+
+      const data = await res.json()
+      setShareUrl(data.url)
+    } catch (err) {
+      setError('Failed to generate share link')
+      setShowShareModal(false)
+    } finally {
+      setShareLoading(false)
+    }
+  }, [originalPathway, pathwayName])
+
+  // Copy share URL
+  const copyShareUrl = useCallback(() => {
+    navigator.clipboard.writeText(shareUrl)
+    setShareCopied(true)
+    setTimeout(() => setShareCopied(false), 2000)
+  }, [shareUrl])
 
   // Handle node click
   const onNodeClick = useCallback((event, node) => {
@@ -111,12 +156,27 @@ export default function App() {
     setShowUploader(true)
     setError(null)
     setPathwayName('')
+    setOriginalPathway(null)
+    // Clear URL params
+    window.history.replaceState({}, '', window.location.pathname)
   }, [setNodes, setEdges])
 
   // Custom minimap node color
   const minimapNodeColor = useCallback((node) => {
     return node.data?.colors?.bg || '#3b82f6'
   }, [])
+
+  // Loading shared pathway
+  if (loadingShared) {
+    return (
+      <div className="w-full h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-400">Loading shared pathway...</p>
+        </div>
+      </div>
+    )
+  }
 
   // Upload screen
   if (showUploader) {
@@ -207,12 +267,23 @@ export default function App() {
             <p className="text-xs text-slate-500">{stats?.totalNodes} nodes, {stats?.totalEdges} edges</p>
           </div>
         </div>
-        <button
-          onClick={handleReset}
-          className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors"
-        >
-          Upload New
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleShare}
+            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors flex items-center gap-2"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            Share
+          </button>
+          <button
+            onClick={handleReset}
+            className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors"
+          >
+            Upload New
+          </button>
+        </div>
       </div>
 
       {/* React Flow */}
@@ -251,6 +322,56 @@ export default function App() {
           node={selectedNode}
           onClose={() => setSelectedNode(null)}
         />
+      )}
+
+      {/* Share modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowShareModal(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-slate-800">Share Pathway</h2>
+              <button onClick={() => setShowShareModal(false)} className="text-slate-400 hover:text-slate-600">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {shareLoading ? (
+              <div className="py-8 text-center">
+                <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+                <p className="text-slate-500">Generating share link...</p>
+              </div>
+            ) : (
+              <>
+                <p className="text-sm text-slate-600 mb-4">
+                  Anyone with this link can view your pathway:
+                </p>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={shareUrl}
+                    readOnly
+                    className="flex-1 px-3 py-2 bg-slate-100 border border-slate-200 rounded-lg text-sm text-slate-700 font-mono"
+                  />
+                  <button
+                    onClick={copyShareUrl}
+                    className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
+                      shareCopied
+                        ? 'bg-green-500 text-white'
+                        : 'bg-blue-600 hover:bg-blue-500 text-white'
+                    }`}
+                  >
+                    {shareCopied ? 'Copied!' : 'Copy'}
+                  </button>
+                </div>
+                <p className="text-xs text-slate-400 mt-3">
+                  This link never expires.
+                </p>
+              </>
+            )}
+          </div>
+        </div>
       )}
     </div>
   )
