@@ -1,0 +1,3157 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "data": {
+        "name": "Start",
+        "prompt": "Just say this in a natural conversational tone with an upwards inflection:\n\n\"{{first_name}}?\"\n\n#\n#\n#### Notes: Kobe is pronounced 'Co-bee'",
+        "isStart": true,
+        "condition": "Wait for Response",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 431.4923383045287,
+        "y": 21.7910371332643
+      }
+    },
+    {
+      "id": "6fd84d7a-ca95-4ed4-82fd-fd71ad96aaeb",
+      "data": {
+        "tag": [],
+        "name": "Greeting",
+        "prompt": "Just say this in a natural conversational tone:\n\nit's kaylie",
+        "headers": [
+          [
+            "low_end",
+            "{{low_end}}"
+          ],
+          [
+            "Authorization",
+            "[REDACTED]"
+          ]
+        ],
+        "max_retries": 0,
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        }
+      },
+      "type": "Default",
+      "position": {
+        "x": 432.9506685408933,
+        "y": 229.9569428578579
+      }
+    },
+    {
+      "id": "7c36dc34-2d0f-484a-aa68-61fcfd6a4bc0",
+      "data": {
+        "name": "Reason for call",
+        "prompt": "Just say this in a natural conversational tone:\n\nI saw that you were interested in foreclosure homes in {{city}}... you had put your info into one of our posts on facebook (downwards inflection). Are you currently looking to buy, sell, or both?",
+        "extractVars": [
+          [
+            "status",
+            "string",
+            "Determine whether the user is looking to buy a new home, sell their current home or both. ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 431.407319081,
+        "y": 475.079314214573
+      }
+    },
+    {
+      "id": "d0e97af9-2408-4749-8fc6-17e5a9162de7",
+      "data": {
+        "name": "Foreclosure Question P1",
+        "prompt": "Just say this:\n\nOkay Great, Were you only interested in foreclosures, or are you open to any home that's a great deal? ",
+        "extractVars": [
+          [
+            "foreclosure",
+            "string",
+            "Determine if the user is only interested in foreclosure homes or if they are also open to a great deal.",
+            false,
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": -9.172576952102418,
+        "y": 1383.552959499045
+      }
+    },
+    {
+      "id": "d8986b84-e6af-408a-9556-db501ed2fe69",
+      "data": {
+        "name": "Confirm Reason for Call",
+        "prompt": "Just say this: \n\nThat's fine {{first_name}} we do have your contact information here and it's from my understanding that you're looking to purchase a home. Do I have that right? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 686.5557602940146,
+        "y": 696.3904774018973
+      }
+    },
+    {
+      "id": "9820691b-6cfe-4b83-8ff6-739068fa4e0a",
+      "data": {
+        "name": "Discover Intent",
+        "prompt": "In a conversational manner ask THESE EXACT questions to spark a conversation and discover the users true intention.\nRepsond positively with affirmative positive language. After affirming the previous statement say, 'either way...' ONLY ONCE. \n\nHere are the questions to ask: \nWhat area do you currently live in? \nHow long have you lived in the neighborhood?\nASK THIS QUESTION EXACTLY: \"If you were to make a move, where would you like to go?\"\nASK THIS QUESTION EXACTLY: \"and when would that be, IF YOU WERE TO MOVE THAT IS?\"\n\n### YOU MUST ASK QUESTIONS ONE AT TIME. NEVER MULTIPLE QUESTIONS AS ONCE. \n\nExample dialogue for \" and when would that be? \" question\n\nYou're happy with City and wouldn't mind staying there. That's great to hear. When would you like to make your next move? ",
+        "condition": "YOU MUST Collect information to the four questions outlined before moving on. \n\nInformation to collect: \nWhat are do they live in now?\nHow long have you lived in the current area?\nWhere would they like to move to? (dream_area)\nWhen would they like to move? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 980.6019902474025,
+        "y": 944.0206854031265
+      }
+    },
+    {
+      "id": "275ff515-d2dd-4432-a3a3-8b7722f4258c",
+      "data": {
+        "name": "Reason for Asking",
+        "prompt": "Just say this in a natural conversational tone:\n\nthe reason I ask is because we have access to exclusive off market properties at great prices. Would that be of interest to you? ",
+        "extractVars": [
+          [
+            "interested",
+            "string",
+            "Are they interested in properties, yes or no? ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 953.4682832676101,
+        "y": 1159.596025185653
+      }
+    },
+    {
+      "id": "a461f3e9-c5f7-4912-bbc1-6b70e26aa7ba",
+      "data": {
+        "name": "Only Foreclosures P1",
+        "prompt": "Just say something like this: \n\nOkay perfect, please keep in mind that the foreclosures we deal with are going to be cash only sales is that okay? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": -211.0318270883961,
+        "y": 1642.097433925828
+      }
+    },
+    {
+      "id": "836c7065-2989-444c-9f86-c6fd9404d165",
+      "data": {
+        "name": "Any great deal? P1",
+        "prompt": "Just say this with an upwards inflection:\n\nThat's fine, so then any home that's a really great deal? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": -824.8769807573783,
+        "y": 2128.148700028087
+      }
+    },
+    {
+      "id": "3418ab0e-4832-4fcc-abd9-f872f0269efd",
+      "data": {
+        "name": "List of homes P1",
+        "prompt": "Just say this:\n\nGreat! What we can do then is put together a list of homes that you might like. For your email I have [say email address slowly] {{email}}, is that your best one?\n\n#### '_' is pronounced underscore NOT slash. For example 'test_c' is said as 'TEST UNDERSCORE C'",
+        "condition": "Confirm email\n\nConfirm that the email that we have on file is correct. If not please collect the correct email. ",
+        "extractVars": [
+          [
+            "email",
+            "string",
+            "extract the users email address from the conversation if different from the one we already have",
+            true
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {
+          "ignorePrevious": true
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 148.1127913044967,
+        "y": 2164.822446119991
+      }
+    },
+    {
+      "id": "f8ec754b-e93e-43bf-8128-59af7d9eaac5",
+      "data": {
+        "name": "Confirm Move to Area P1",
+        "prompt": "Briefly and positively affirm their situation so far.\n\nThen ask something like this (stressing IF):\n\nIf you were to make a move, where would you like to go?\n\n### STAYING IN THE SAME PLACE IS AN ACCEPTABLE ANSWER, WHEN THEY ANSWER MOVE ON TO THE NEXT NODE",
+        "extractVars": [
+          [
+            "dream_area",
+            "string",
+            "Where they are looking to move to. ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 148.9669508432011,
+        "y": 2371.900141488545
+      }
+    },
+    {
+      "id": "19bbb38d-2a95-4a37-9f6c-782f956d5237",
+      "data": {
+        "name": "Move timeline P1",
+        "prompt": "Briefly and positively affirm their desired area or that they would like to stay in their current area.\n\nThen ask something like this (stressing IF):\n\nand again IF you were to move (even in the same area, but into a new home - ONLY SAID FOR SAME AREA) when were you thinking that would that be?",
+        "extractVars": [
+          [
+            "timeline_months",
+            "string",
+            "When does the user plan on moving?",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 150.6076616497811,
+        "y": 2570.756626617798
+      }
+    },
+    {
+      "id": "42858ff8-1029-49fb-af00-d6675adb4122",
+      "data": {
+        "name": "Foreclosure Question V2",
+        "prompt": "Just say this in a natural conversational tone:\n\nwere you only interested in foreclosures, or are you open to any home that's a great deal? ",
+        "extractVars": [
+          [
+            "foreclosure",
+            "string",
+            "Determine if the user is only interested in foreclosure homes or if they are also open to a great deal.",
+            false,
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 725.347770231811,
+        "y": 1378.269132514466
+      }
+    },
+    {
+      "id": "019587a2-465a-4537-b151-e5075c7ef67d",
+      "data": {
+        "name": "Only Foreclosures P2",
+        "prompt": "Just say something like this: \n\nOkay perfect, please keep in mind that the foreclosures we deal with are going to be cash only sales is that okay? ",
+        "condition": "Confirm with whether or not that are able to pay cash for a home without financing. If they say \"oh I didn't realize that\" Or \"I don't have that kind of cash\" these are acceptable answers. ",
+        "extractVars": [
+          [
+            "cash",
+            "string",
+            "determine if they have the cash to buy a home outright without financing. yes or no. ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 431.0234452921113,
+        "y": 1599.961284223685
+      }
+    },
+    {
+      "id": "635dc0e0-4371-4834-8e5e-87d5c3870517",
+      "data": {
+        "name": "List of Homes P2",
+        "prompt": "Just say this:\n\nGreat! What we can do then is put together a list of homes that you might like. For your email I have [say email address slowly] {{email}}, is that your best one?\n\n#### '_' is pronounced underscore NOT slash. For example 'test_c' is said as 'TEST UNDERSCORE C'",
+        "condition": "Confirm that the email that we have on file is correct. If not correct, extract the correct email. ",
+        "extractVars": [
+          [
+            "email",
+            "string",
+            "extract the users email address from the conversation",
+            true
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {
+          "ignorePrevious": true
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 794.2178228275558,
+        "y": 2166.898587638647
+      }
+    },
+    {
+      "id": "42994262-81d2-4b4e-9861-f48c806ddb86",
+      "data": {
+        "name": "Any great deal? P2",
+        "prompt": "Just say this with an upwards inflection:\n\nThat's fine, so then any home that's a really great deal? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 365.8017249502944,
+        "y": 1986.929777819946
+      }
+    },
+    {
+      "id": "40cd64ce-35a8-4ef7-9acf-1231c58daf4c",
+      "data": {
+        "name": "Confirm Move to Area P2",
+        "prompt": "Just say this with a tone that sounds like you are thinking and typing information into a computer:\n\nand we are looking for homes in {{dream_area}}... just entering that info here... [IF YOU HAVE ALREADY SAID THIS DONT REPEAT YOURSELF]\n\nAffirm positively that they the area they are looking to move to is great in a simple short statement.",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": true,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 793.3753078348383,
+        "y": 2366.098124657327
+      }
+    },
+    {
+      "id": "ec7af8f1-23b3-4f4b-871c-de2b4c24b770",
+      "data": {
+        "name": "Move timeline P2",
+        "prompt": "Just say something like this:\n\nand {{first_name}} if you were to move you're looking at about {{timeline_months}} months, do I have that right? \n\n\n### we want it to sound like we remember, but we are confirming, since they have already given us this information. ",
+        "condition": "Ensure that we know when they plan on moving before going to the next node. ",
+        "extractVars": [
+          [
+            "timeline_months",
+            "string",
+            "When does the user plan on moving?",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 794.7590849361031,
+        "y": 2566.60220001618
+      }
+    },
+    {
+      "id": "fd6fbdc1-ae98-4b98-a794-41d0f93b4b67",
+      "data": {
+        "name": "Current Area",
+        "prompt": "Begin by saying \"and if you don't mind me asking...\" in a conversational, affirmative, concise style.\n\nThen in the same tone continue say this: what area do you currently live in?\n\n#### City, Town, Distrinct, ANY PLACE LOCATION IS AN ACCEPTABLE ANSWER",
+        "extractVars": [
+          [
+            "area",
+            "string",
+            "the current area that the user lives in. ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 148.7126446076011,
+        "y": 2760.926658370896
+      }
+    },
+    {
+      "id": "56bfc48b-fe85-4527-bcf7-a806077fe0c6",
+      "data": {
+        "tag": {
+          "name": "price_range",
+          "color": "#ae00ff"
+        },
+        "name": "Agent Preferred Price Range",
+        "prompt": "### Affirm their reason for moving\n\nThen say something like this this:\n\nWell as you might know the homes in {{dream_area}} ranges quite a bit from $250,000 to $350,000. What there a specific price range you were looking in? \n\n",
+        "extractVars": [
+          [
+            "price_range",
+            "integer",
+            "determine what price the user is looking to purchase a home for. \n\n#### Log answer as an integer. Look to the following examples: \n$350,000 = 350000\n350K = 350000\n350 = 350000\nthree fifty = 350000\nthree fifty K = 350000\nthree hundred and fifty thousand = 350000\naround three hundred and fifty = 350000\njust under three hundred and fifty = 350000\n\n### if user says anything affirmative without directly saying a number, log the higher end of the price range of their number. ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 494.9099335776355,
+        "y": 3403.070723469845
+      }
+    },
+    {
+      "id": "521d7966-1bf6-43a7-b981-11bcbca57d10",
+      "data": {
+        "name": "How the User Plans to Pay",
+        "prompt": "### affirm their previous answer\n\nI would like to confirm the method the users plans to use to pay for the home. But I also don't want to repeat myself. Here are a couple of example dialogues. It's okay if they aren't sure, we just don't want to repeat ourselves here. \n\nExample 1 (User has already indicated they plan to finance the home)\nNow say we found a home in {{dream_area}} for around {{price_range}} to help you (paraphase {{reason}}), just to confirm we're thinking financing correct? \n\nExample 2 (User has already indicated they have cash to buy a home)\nNow say we found a home in {{dream_area}} for around {{price_range}} to help you (paraphase {{reason}}), just to confirm we're thinking cash correct? \n\n",
+        "condition": "the user must confirm what method of payment they are using. Cash, financing or uncertain are acceptable. ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 492.3142620627106,
+        "y": 3734.298599343027
+      }
+    },
+    {
+      "id": "1702d28e-5be8-40dd-b103-b9f1de5c2a83",
+      "data": {
+        "tag": {
+          "name": "price_range",
+          "color": "#ae00ff"
+        },
+        "name": "Agent Range Out of User Budget",
+        "prompt": "Say something like this: \n\nI don't think you'll be able to get a home in {{area}} for less than $250,000. Can I add you to our list so we can notify you if anything comes up for that price? ",
+        "extractVars": [
+          [
+            "price_range",
+            "integer",
+            "if user indicates that they can actually afford a home starting at $250,000 then update price_range to 250000",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1546.553006947106,
+        "y": 3506.36998714266
+      }
+    },
+    {
+      "id": "3c91ba72-3e88-42f2-91fe-5b83c60e0f6f",
+      "data": {
+        "tag": {
+          "name": "price_range",
+          "color": "#ae00ff"
+        },
+        "name": "Add to List (Low Budget)",
+        "prompt": "Tell the user that our team will reach out if we find anything in {{area}} under $250000. ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1810.903074605006,
+        "y": 3860.880575703498
+      }
+    },
+    {
+      "id": "a8d94cd0-809f-485e-9b0e-c56016de2753",
+      "data": {
+        "name": "Financing Query",
+        "prompt": "say something like:\n\nHave you spoken with a lender about the current rates and closing costs on a home in the ({{price_range}} state this in a dollar amount like 'three hundred thousand' but this is an example. you must actually use {{price_range}}) range?\n\n",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 62.32853590454062,
+        "y": 3937.571851322339
+      }
+    },
+    {
+      "id": "8ce848fc-0d17-4a26-8970-0787d520cbe7",
+      "data": {
+        "name": "Rent or Own",
+        "prompt": "Just say this: \n\nOkay great, before anything else, may I ask if the home you're living in now in {{area}} are you renting or do you have to sell it before moving?",
+        "extractVars": [
+          [
+            "Own",
+            "string",
+            "Do they own their home or are they renting? ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 505.8180860337023,
+        "y": 4352.451159793894
+      }
+    },
+    {
+      "id": "317a25c3-4993-44cf-83ca-e8fa4f16e690",
+      "data": {
+        "name": "Offer Lender Partner P2",
+        "prompt": "Just say this: \n\nNo worries! If you'd like I can connect you with my lender to help see what options you have? ",
+        "extractVars": [
+          [
+            "lender_partner",
+            "string",
+            "do they already have or do they need a lender? \n\naka mortgage broker, aka home loan guy etc.\n\n### Log as Yes, No or leave blank if unclear.",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 782.0368434546974,
+        "y": 4026.503282638975
+      }
+    },
+    {
+      "id": "fec6f0a5-f486-4517-a70e-7219c2cd0e26",
+      "data": {
+        "name": "Offer Lender Partner P1",
+        "prompt": "just say this: \n\nThat's fine. If you'd like I can have my lender reach out to you, they are great. Does that work? ",
+        "extractVars": [
+          [
+            "lender_partner",
+            "string",
+            "do they already have or do they need a lender? \n\naka mortgage broker, aka home loan guy etc.\n\n### Log as Yes, No or leave blank if unclear.",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": -249.0538947408404,
+        "y": 4185.07275571635
+      }
+    },
+    {
+      "id": "0e0863fa-c7fc-406d-97bb-e0dfd14578f8",
+      "data": {
+        "name": "User Needs to Sell",
+        "prompt": "### affirm their previous answer\n\nThen say something like this: \n\nand did you have any firm plans for getting your home sold? \n\n",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 579.1390221823881,
+        "y": 4694.007032123319
+      }
+    },
+    {
+      "id": "b52df374-e39c-4883-9e7f-7e96fc43c973",
+      "data": {
+        "name": "User is Renting",
+        "prompt": "just say something like this: \n\nokay, and are you in a long term lease or are you month to month? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 54.34664656388475,
+        "y": 4621.644063891941
+      }
+    },
+    {
+      "id": "fe80a09e-772d-4550-9f9b-96a8bdd88eb6",
+      "data": {
+        "name": "User Housing Edge Case",
+        "prompt": "Just say something simple like: \n\n(affirm what they just said) so, you can really move anytime, is that right? \n\n### the person is not renting or owning. an edge case like they are living with their parents, friends or a relative. So do not own but also no lease.",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1061.496301736249,
+        "y": 4621.311533698577
+      }
+    },
+    {
+      "id": "fa5a822b-cf40-4415-a8b3-c225bdc181e2",
+      "data": {
+        "name": "Offer Listing Agent",
+        "prompt": "Just say something like this if they own their home: \n\nPerfect. What I'd love to do for you, {{first_name}}, is connect you with one of the TOP listing agents in our office. They can meet you at your home, and share a plan with you that will get your home sold, and get your family moving to {{dream_area}} so you can (paraphase {{reason}}). How does that sound?\n\nJust say something like if they rent or neither: \n\nPerfect. What I'd love to do for you, {{first_name}}, is connect you with one of the TOP listing agents in our office. They can meet you and share a plan with you that will get your family moving to {{dream_area}} so you can (paraphase {{reason}}). How does that sound?",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 271.192994760257,
+        "y": 5691.506416790742
+      }
+    },
+    {
+      "id": "5159ab51-b908-4bc4-be8e-5424678dcff4",
+      "data": {
+        "name": "Waiting to sell. ",
+        "prompt": "have a short conversation with them to determine the following: \nwhen do they plan on selling?\nWhy do they want to sell then rather than sooner?\n\n#### affirm that they want to wait to sell and for what reason then say \"okay I can appreciate that\" ",
+        "condition": "Before continuing to the next node determine when they would like to sell their home and why that timeline makes sense for them. ",
+        "extractVars": [
+          [
+            "sell_timeline",
+            "string",
+            "when they would like to sell and the reason for that date. ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 784.8726015475906,
+        "y": 5007.793486522044
+      }
+    },
+    {
+      "id": "d18ec50f-34e6-4db0-bc61-9c06a0151757",
+      "data": {
+        "name": "Renos First",
+        "prompt": "Just say this: \n\n\"What sort of updates are you thinking of doing? \"\n\n### positively affirm their response. ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1269.676811367336,
+        "y": 5163.316397643096
+      }
+    },
+    {
+      "id": "cd8ed0b6-7aab-49a5-9334-bee8c81af823",
+      "data": {
+        "name": "Wait to Reno",
+        "prompt": "Just say this: \n\nWe typically recommend meeting with a listing agent before renovating, just because once we've seen your home we can tell you what changes will get you the biggest bang for your buck when you sell. Would you be open to finding out how you can get top dollar for your home, while spending a little as possible on a renovation? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1270.826023025598,
+        "y": 5374.399743468493
+      }
+    },
+    {
+      "id": "ac670660-3a36-41b3-9f65-d66b52251299",
+      "data": {
+        "name": "Working with a realtor? ",
+        "prompt": "Just say this: \n\nand I assume you're not currently working with a realtor?",
+        "extractVars": [
+          [
+            "realtor",
+            "string",
+            "are they working with a realtor? yes or no",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 933.6818452662712,
+        "y": 5619.840704877282
+      }
+    },
+    {
+      "id": "e7f6b367-d28d-421f-918c-eed827d16804",
+      "data": {
+        "name": "Yes Realtor",
+        "prompt": "Just say something like this:\n\nOh you already have a realtor?! no worries. May I ask if you have signed any documents with that agent in the last 3-6 months? \n\nOR\n\nOh you are?! no worries. May I ask if you have signed any documents with that agent in the last 3-6 months? ",
+        "extractVars": [
+          [
+            "realtor_agreement",
+            "string",
+            "have they signed an agreement to work with a realtor? ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1403.782783152251,
+        "y": 5938.918098730341
+      }
+    },
+    {
+      "id": "9e42023b-cfa7-4850-8d63-72aebe2a1d3f",
+      "data": {
+        "name": "Realtor Friend",
+        "prompt": "just say this: \n\noh for sure! everyone knows someone in the business. We do recommend that when purchasing a home you keep your options open. This is likely the biggest investment you'll ever make in your life to date, so we'd love the opportunity to show you how we've helped many other home buyers in the past. are you open to chatting with one of our TOP agents? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1603.548071074668,
+        "y": 5817.960810790484
+      }
+    },
+    {
+      "id": "0585a49a-cffa-41a2-a2e3-52ae217bd2ec",
+      "data": {
+        "name": "Not Working with Agent",
+        "prompt": "",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": true,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 683.1155489456513,
+        "y": 6380.77138545339
+      }
+    },
+    {
+      "id": "83e91242-7b06-4a8b-8d7c-d416018885e9",
+      "data": {
+        "name": "Signed Agreement",
+        "prompt": "### Confirm that we cannot work with them if they have signed an agreement with another realtor. But ask if we can reach out when that agreement is due to expire. and then wish them a good day after they respond\n\nsay something like this:\n\nOkay well {{first_name}} thanks for your time, but since you've already committed to another realtor, we can't take this conversation any further. Would it be alright with you if I reached out to you again once your current agreement expires? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1765.981072609105,
+        "y": 6377.007065265457
+      }
+    },
+    {
+      "id": "d8fe10e0-9ec4-4114-a412-ac31fd639cf5",
+      "data": {
+        "name": "Resistant",
+        "prompt": "Just say this: \n\nIf you were to meet {{agent_name}} it would just be a chat to simply compare apples to apples and which ever way you decide to go is up to you. At least you'll know for certain you're making the right choice either way, not just for you but for the sake of your family, so you guys can for sure {{reason}}. Does that make sense? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 2057.83994778437,
+        "y": 6066.428408602583
+      }
+    },
+    {
+      "id": "91442ea8-5f06-473b-bf5c-11957efb5c37",
+      "data": {
+        "name": "Committed to Friend, End Call",
+        "prompt": "### Confirm that we cannot work with them if they have signed an agreement with another realtor. But ask if we can reach out when that agreement is due to expire. and then wish them a good day. \n\nsay something like this:\n\nOkay well {{first_name}} thanks for your time, but since you're already committed to another realtor, best if we end the conversation here. Would it be alright with you if I reached out to you again in the future in case you change your mind? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 2356.013383522812,
+        "y": 6373.14710467524
+      }
+    },
+    {
+      "id": "9a6dedc7-5de0-41ba-b515-10759981381d",
+      "data": {
+        "name": "Confirm interest",
+        "prompt": "Just say something very close to this: \n\nok well {{first_name}} if we could help you find a home that's in {{dream_area}} and help you get the best deal possible while still making sure you can (paraphrase {{reason}}), is that something you'd be interested in? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 685.4696017631785,
+        "y": 6555.55657683853
+      }
+    },
+    {
+      "id": "859dca92-ff98-4bb7-9990-6ff98c1efa25",
+      "data": {
+        "name": "Ask for User Best Times",
+        "prompt": "Ask the user what time would be the best time to connect with an agent. Check to see if that time is available.\n\nExample Dialogue:\n\nGreat, what we'll do for you then is set you up with {{agent_name}} they are one of the TOP agents at our office. They have some time today and tomorrow. Are mornings or afternoons better for you? \n",
+        "condition": "keep going until a time they prefer matches the available times retrieved in the webhook.\n\nDo not move on until the user has confirmed the time that they prefer AND it is available according to the webhook data. ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 603.0837944434991,
+        "y": 7654.350881525555
+      }
+    },
+    {
+      "id": "60a5f152-8d5d-4e70-89cb-e9637c413f71",
+      "data": {
+        "name": "Confirm email",
+        "prompt": "Just say something like: \n\nOkay... just wrapping up here. Just to confirm to send you a booking confirmation email, [say email address slowly] {{email}} is the best email to reach you at? \n\n#### '_' is pronounced underscore NOT slash. For example 'test_c' is said as 'TEST UNDERSCORE C'",
+        "condition": "confirm that the email we have for the user is correct. ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {
+          "ignorePrevious": true
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 398.987525755954,
+        "y": 7031.832008818814
+      }
+    },
+    {
+      "id": "07a9cae5-17fc-420e-8f31-d0caf1c2ad30",
+      "data": {
+        "name": "User Needs Time to Think",
+        "prompt": "Say something like this: \n\nOf course! it's a big decision and you want to make sure you're making the right move for you and your family right? how about this?... umm I'll pencil you in for later on this week or this weekend, and that'll give you time to think about it and make sure we're on the same page. and I'll follow up with you later to make sure we're good to go. Sound good?",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1004.775803826848,
+        "y": 6845.543998736829
+      }
+    },
+    {
+      "id": "10be2e15-b9e8-42d3-bdaa-6b51c0a5d1c6",
+      "data": {
+        "name": "User Declared Budget Route",
+        "routes": [
+          {
+            "conditions": [
+              {
+                "field": "price_range",
+                "value": "250000",
+                "isGroup": false,
+                "operator": "greater than"
+              }
+            ],
+            "targetNodeId": "521d7966-1bf6-43a7-b981-11bcbca57d10"
+          },
+          {
+            "conditions": [
+              {
+                "field": "price_range",
+                "value": "250000",
+                "isGroup": false,
+                "operator": "less than"
+              }
+            ],
+            "targetNodeId": "1702d28e-5be8-40dd-b103-b9f1de5c2a83"
+          }
+        ],
+        "fallbackNodeId": null,
+        "headers": null
+      },
+      "type": "Route",
+      "position": {
+        "x": 971.8595917602415,
+        "y": 3503.563859379506
+      }
+    },
+    {
+      "id": "87bb65b3-4219-4696-b473-25cf7d246c99",
+      "data": {
+        "tag": {
+          "name": "price_range",
+          "color": "#ae00ff"
+        },
+        "name": "Confirm Price Range",
+        "prompt": "oh okay, so just to confirm, something in the $250,000 range would work for you? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1161.822510342385,
+        "y": 3734.501499444688
+      }
+    },
+    {
+      "id": "fe361eab-8c7b-4e11-b43b-0ee43abd51a2",
+      "data": {
+        "name": "Month to Month",
+        "prompt": "",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": true,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": -283.8584904132499,
+        "y": 5007.718624296118
+      }
+    },
+    {
+      "id": "840aa82e-ba3e-47e0-abcd-2ae7a8764729",
+      "data": {
+        "name": "Long term lease",
+        "prompt": "Just say something like this: \n\nGreat and if we found you the right home are you able to break the lease? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 167.8989750174776,
+        "y": 4905.826916792579
+      }
+    },
+    {
+      "id": "2dd364d0-c36c-4510-9ca5-d4ce7745dac5",
+      "data": {
+        "name": "In long term lease. ",
+        "prompt": "ask the user how many months are remaining in their lease. ",
+        "extractVars": [
+          [
+            "lease_end",
+            "integer",
+            "Given the current date, extract how many months there are remaining in the users lease. ",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": -366.6244106651461,
+        "y": 5407.941462852989
+      }
+    },
+    {
+      "id": "b655eccd-0e72-4a54-9426-fbade524b331",
+      "data": {
+        "name": "In long term lease",
+        "prompt": "### Ask if we can reach out when their lease is due to end. and then wish them a good day after they respond\nsay something like this:\n\nOkay well {{first_name}} thanks for your time, but since you're still in your lease and have quite a bit of time left, we can't really take this conversation much further. Would it be alright with you if I reached out to you when there are 3 or so months left in your lease? ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": -689.294915959355,
+        "y": 5684.157322631503
+      }
+    },
+    {
+      "id": "2910e0db-a000-4758-b849-0daec7379999",
+      "data": {
+        "name": "Long Term Lease, End Call",
+        "prompt": "Thank the user for their time and wish them a great day. ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "End Call",
+      "position": {
+        "x": -691.6457625528813,
+        "y": 5936.481669544928
+      }
+    },
+    {
+      "id": "c04e7631-1ad8-49d6-80b7-9d191ccd6d2d",
+      "data": {
+        "name": "Reason for Move",
+        "prompt": "Just say this: \n\nSo what's the reason you're looking to move?\n\n### repeat and affirm their answer. End with Got it. \n\n",
+        "condition": "Ensure we know why they are moving before continuing to the next node. ",
+        "extractVars": [
+          [
+            "reason",
+            "string",
+            "reason for move",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 492.2027826237071,
+        "y": 3018.898734102919
+      }
+    },
+    {
+      "id": "039cf2bd-c7c8-4e21-9192-fef21c6a9937",
+      "data": {
+        "name": "Off Topic Interuption",
+        "prompt": "# Purpose\nOff-topic/meta/greeting interceptor. Keep the flow on track without collecting info here.\n\n# Trigger (hard gate)\nOnly trigger if {{lastUserMessage}} is clearly and explicitly OFF-TOPIC (e.g., animals, sports, random trivia), META (“are you AI/robot?, are you real?”). \nIf the message is on-topic for the current flow, SAY NOTHING and immediately return control.\n\n# Behavior\n- Give one short redirect and hand control back to the prior node.\n- Do NOT ask for contact info or booking here.\n\n# Response Template\n“I can’t get into that — I’m the realtor’s assistant. If you can answer a few more quick questions, then I’ll set you up on a call with one of our agents who can help. Sound good?\n",
+        "isGlobal": true,
+        "globalLabel": "Off-Topic / Meta / Greeting Intercept",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": true,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "pathwayExamples": [
+          {
+            "Chosen Pathway": "Off Topic Inquiries",
+            "Conversation History": [
+              {
+                "role": "user",
+                "content": "<<CALL CONNECTED>>"
+              },
+              {
+                "role": "assistant",
+                "content": "Kobe?"
+              },
+              {
+                "role": "user",
+                "content": "hi"
+              },
+              {
+                "role": "assistant",
+                "content": "It's Sarah!"
+              },
+              {
+                "role": "user",
+                "content": "yes"
+              },
+              {
+                "role": "assistant",
+                "content": "Yeah, I saw that you were interested in foreclosure homes in your city, you had put your info into one of our posts on facebook. Are you currently looking to buy, sell, or both?"
+              },
+              {
+                "role": "user",
+                "content": "tell me about penguins"
+              },
+              {
+                "role": "assistant",
+                "content": "I'm just the realtor's assistant, I don't want to get too sidetracked. If I could just ask you a few more questions, I can connect you with Rachel and she can help you with anything else you need. Sound good?"
+              }
+            ]
+          }
+        ],
+        "conditionExamples": [
+          {
+            "Condition Achieved": "false",
+            "Conversation History": [
+              {
+                "role": "user",
+                "content": "<<CALL CONNECTED>>"
+              },
+              {
+                "role": "assistant",
+                "content": "Kobe?"
+              },
+              {
+                "role": "user",
+                "content": "yes"
+              },
+              {
+                "role": "assistant",
+                "content": "It's Sarah!"
+              },
+              {
+                "role": "user",
+                "content": "hi"
+              },
+              {
+                "role": "assistant",
+                "content": "Yeah, I saw that you were interested in foreclosure homes in your city, you had put your info into one of our posts on Facebook. Are you currently looking to buy, sell, or both?"
+              },
+              {
+                "role": "user",
+                "content": "tell me about penguins"
+              },
+              {
+                "role": "assistant",
+                "content": "I'm just the realtor's assistant, I don't want to get too off track, if I could just ask you a few more questions about what you're looking for in a home, I can connect you with Rachel and she can help you out, sound good?"
+              }
+            ]
+          },
+          {
+            "Condition Achieved": "false",
+            "Conversation History": [
+              {
+                "role": "user",
+                "content": "<<CALL CONNECTED>>"
+              },
+              {
+                "role": "assistant",
+                "content": "Kobe?"
+              },
+              {
+                "role": "user",
+                "content": "hi"
+              },
+              {
+                "role": "assistant",
+                "content": "It's Sarah!"
+              },
+              {
+                "role": "user",
+                "content": "hi"
+              },
+              {
+                "role": "assistant",
+                "content": "Yeah, I saw that you were interested in foreclosure homes in the city, you had put your info into one of our posts on Facebook. Are you currently looking to buy, sell, or both?"
+              },
+              {
+                "role": "user",
+                "content": "tell me about penguins"
+              },
+              {
+                "role": "assistant",
+                "content": "I'm just the realtor's assistant, I don't want to get too sidetracked. If I could just ask you a few more questions, I can connect you with Rachel and she can help you with anything you need. Sound good?"
+              }
+            ]
+          },
+          {
+            "Condition Achieved": "false",
+            "Conversation History": [
+              {
+                "role": "user",
+                "content": "<<CALL CONNECTED>>"
+              },
+              {
+                "role": "assistant",
+                "content": "Kobe?"
+              },
+              {
+                "role": "user",
+                "content": "hi"
+              },
+              {
+                "role": "assistant",
+                "content": "It's Sarah!"
+              },
+              {
+                "role": "user",
+                "content": "yes"
+              },
+              {
+                "role": "assistant",
+                "content": "Yeah, I saw that you were interested in foreclosure homes in your city, you had put your info into one of our posts on facebook. Are you currently looking to buy, sell, or both?"
+              },
+              {
+                "role": "user",
+                "content": "tell me about penguins"
+              },
+              {
+                "role": "assistant",
+                "content": "I'm just the realtor's assistant, I don't want to get too off track, if I could just ask you a few more questions about what you're looking for in a home, I can connect you with Rachel and she can help you out, sound good?"
+              }
+            ]
+          },
+          {
+            "Condition Achieved": "false",
+            "Conversation History": [
+              {
+                "role": "user",
+                "content": "<<CALL CONNECTED>>"
+              },
+              {
+                "role": "assistant",
+                "content": "Kobe?"
+              },
+              {
+                "role": "user",
+                "content": "hi"
+              },
+              {
+                "role": "assistant",
+                "content": "It's Sarah!"
+              },
+              {
+                "role": "user",
+                "content": "yes"
+              },
+              {
+                "role": "assistant",
+                "content": "Yeah, I saw that you were interested in foreclosure homes in the city, you had put your info into one of our posts on Facebook. Are you currently looking to buy, sell, or both?"
+              },
+              {
+                "role": "user",
+                "content": "tell me about penguins"
+              },
+              {
+                "role": "assistant",
+                "content": "I'm just the realtor's assistant, I don't want to get too off track. If I could just ask you a few more questions, I can connect you with Rachel and she can help you more with whatever you need. Sound good?"
+              }
+            ]
+          }
+        ],
+        "globalDescription": "Choose this only when the user’s message is unrelated to the script, asks about the assistant/AI, or is just a greeting. Do not use for contact capture, or scheduling.",
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1151.307257654121,
+        "y": 44.18264150340187
+      }
+    },
+    {
+      "id": "a981b451-3acb-4763-ae38-edc1a88f7239",
+      "data": {
+        "name": "DNC",
+        "prompt": "# Purpose\nExplicit opt-out handler. Immediately honor do-not-contact requests and end the conversation.\n\n# Trigger (hard gate)\nOnly trigger if the following message explicitly requests removal from contact:\n\n\"{{lastUserMessage}}\"\n\nExamples include: “take me off the list”, “do not contact/call/text”, “remove me”, “unsubscribe”, “opt out”, or carrier keywords: STOP, END, CANCEL, UNSUBSCRIBE, QUIT.\nIf it’s merely disinterest (“not now”, “no thanks”), DO NOT trigger this node.\n\n# Behavior\n- Acknowledge and confirm removal.\n- Do not ask follow-ups or try to save the lead.\n- Set a do-not-contact flag (e.g., do_not_contact = true) and stop further outreach.\n- End conversation.\n\n# Response template\n“Understood — I’ve removed you from our list. You won’t hear from us again.”",
+        "isGlobal": true,
+        "globalLabel": "Opt-Out / Do Not Contact",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "globalDescription": "ONLY for explicit removal requests (e.g., “take me off the list”, “STOP”, “unsubscribe”). Not for general disinterest. After responding, mark do_not_contact = true and end the flow.",
+        "enableGlobalAutoReturn": false,
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1152.703154896494,
+        "y": 354.1128418100246
+      }
+    },
+    {
+      "id": "8cc7ac7e-ce3c-4ff7-b981-bdc8ca747cf2",
+      "data": {
+        "name": "DNC, End Call",
+        "prompt": "Say something like: \n\nTake care {{first_name}}, I wish you all the best. ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "End Call",
+      "position": {
+        "x": 1153.76297989357,
+        "y": 553.2973200360269
+      }
+    },
+    {
+      "id": "8e853286-dc09-4624-a2a9-6317e71ab32d",
+      "data": {
+        "name": "Get Time Slots",
+        "tags": null,
+        "tool": {
+          "tool": {
+            "url": "https://datebuddy.cameron-917.workers.dev/",
+            "name": "Get cal.com Availability",
+            "query": {
+              "days": "2",
+              "format": "range",
+              "timeZone": "America/Edmonton",
+              "username": "brasshelm",
+              "eventTypeSlug": "15min"
+            },
+            "method": "GET",
+            "public": false,
+            "speech": "",
+            "headers": {
+              "Authorization": "Bearer {{SECRET.CAL}}",
+              "cal-api-version": "2024-09-04"
+            },
+            "timeout": "10000",
+            "response": "{{data}}",
+            "description": "This uses a custom cloudflare worker to get a set date range from cal.com availability. User data can be set in the tool. "
+          },
+          "label": null,
+          "public": false,
+          "tool_id": "TL-64a5b071-7a51-4ec3-bcb1-214aab4b6004",
+          "user_id": "f2394507-bf6d-4b5b-959a-0801bb817660",
+          "is_draft": false,
+          "created_at": "2025-09-13T19:23:00.820Z",
+          "staging_tool": {
+            "url": "https://api.cal.com/v2/slots?",
+            "name": "Get cal.com Availability (Staging)",
+            "query": {},
+            "method": "GET",
+            "public": false,
+            "speech": "",
+            "headers": {},
+            "timeout": 10000,
+            "response": "{{data}}",
+            "description": "This uses a custom cloudflare worker to get a set date range from cal.com availability. User data can be set in the tool. "
+          }
+        },
+        "is_staging": false,
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "conditionOverridesGlobalPathway": false
+        },
+        "responsePathways": [
+          [
+            "Default/Webhook Completion",
+            "",
+            "",
+            {
+              "id": "859dca92-ff98-4bb7-9990-6ff98c1efa25",
+              "name": "Book Appointment"
+            }
+          ]
+        ],
+        "headers": null
+      },
+      "type": "Custom Tool",
+      "position": {
+        "x": 1043.798007421271,
+        "y": 7403.807508478497
+      }
+    },
+    {
+      "id": "9f4e6428-8f24-44af-aa91-df26425e0d83",
+      "data": {
+        "tag": {
+          "name": "appointment_start_iso",
+          "color": "#0008ff"
+        },
+        "name": "Confirm Booking Made",
+        "prompt": "Tell them that you've secured their appointment time, and you've already notified the agent and they've started working to prepare for your call.\n\nAsk them if there is anything else they can help them with.",
+        "condition": "Ensure that the user does not have any final questions specifically about the booking. Any other questions can be answered by the agent at their meeting time. ",
+        "extractVars": [
+          [
+            "appointment_start_iso",
+            "string",
+            "Log the date time of the users confirmed appointment start in iso format",
+            false
+          ]
+        ],
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 444.4926118168219,
+        "y": 8209.52124400447
+      }
+    },
+    {
+      "id": "a8533e33-127e-4e97-84b1-2182ec2d0e50",
+      "data": {
+        "tag": [],
+        "url": "https://api.cal.com/v2/bookings?",
+        "body": "{\n  \"eventTypeSlug\": \"15min\",\n  \"username\": \"brasshelm\",\n  \"start\": \"{{start_time}}\",\n  \"attendee\": {\n    \"name\": \"{{first_name}}\",\n    \"email\": \"{{email}}\",\n    \"timeZone\": \"America/Edmonton\"\n  },\n  \"metadata\": {\n    \"source\": \"bland-ai\"\n  }\n}",
+        "name": "Make Booking Webhook",
+        "method": "POST",
+        "prompt": "Just say this:\n\nokay great, I'm just locking in your time.\n\n##### Note: If 'status !contains accepted' then say something like \"oh it looks like someone else just grabbed that spot. Let me see what else we have...\"\n\n",
+        "headers": [
+          [
+            "Content-Type",
+            "application/json"
+          ],
+          [
+            "cal-api-version",
+            "2024-08-13"
+          ],
+          [
+            "Authorization",
+            "[REDACTED]"
+          ]
+        ],
+        "extractVars": [
+          [
+            "start_time",
+            "string",
+            "Extract the appointment start time based on the users selection. Note it as an ISO 8601 date string for example: 2025-09-14T15:00:00Z",
+            false
+          ]
+        ],
+        "max_retries": 0,
+        "modelOptions": {
+          "newTemperature": 0.2
+        },
+        "responseData": [
+          {
+            "data": "$.data.status",
+            "name": "status",
+            "context": ""
+          }
+        ],
+        "timeoutValue": 10,
+        "responsePathways": [
+          [
+            "status",
+            "contains",
+            "accepted",
+            {
+              "id": "9f4e6428-8f24-44af-aa91-df26425e0d83",
+              "name": "Confirm Booking Made"
+            }
+          ],
+          [
+            "status",
+            "!contains",
+            "accepted",
+            {
+              "id": "a8533e33-127e-4e97-84b1-2182ec2d0e50",
+              "name": "Make Booking Webhook"
+            }
+          ]
+        ],
+        "extractVarSettings": {}
+      },
+      "type": "Webhook",
+      "position": {
+        "x": 844.4863791907164,
+        "y": 7889.062788626257
+      }
+    },
+    {
+      "id": "06fe01f2-f0c9-4958-b760-8d3ddf88fcb0",
+      "data": {
+        "name": "BAMFAM",
+        "prompt": "Tell the user that you will speak to them again before their meeting and that you hope they have a wonderful day. \n\n### Edge cases. \n\n1) If the meeting is booked for tomorrow, say you will call them shortly before the meeting to make sure they are all set. \n\n2) If the meeting is booked beyond tomorrow, say you will call them the day before the meeting to make sure they are all set. \n\n",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 449.8650613779924,
+        "y": 8479.920770357068
+      }
+    },
+    {
+      "id": "fecd4087-e3e6-4e6b-a7df-479bd85d0c5e",
+      "data": {
+        "name": "Confirm Phone",
+        "prompt": "Confirm that the {{phone}} we have on file is the best one for them. \n\nExample dialogue: \n\nAnd this number that I'm calling you on is the best one to use?",
+        "condition": "confirm that the phone number we have for the user is correct. ",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {
+          "ignorePrevious": true
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 634.7579470404573,
+        "y": 7210.062919085993
+      }
+    },
+    {
+      "id": "c44618dd-924a-4113-8ba2-04a68d5239ac",
+      "data": {
+        "name": "Update User Contact",
+        "prompt": "Purpose\nUpdate contact info only when the user asks to change it. Always parse {{lastUserMessage}}.\n\nTrigger (HARD GATE; must use {{lastUserMessage}})\nOnly trigger if {{lastUserMessage}} explicitly requests changing/correcting contact info, e.g.:\n- “update/change/correct my email/phone”\n- “new email/phone is …”\n- “that’s not my email/phone”\n- “use this email/phone instead”\nIf {{lastUserMessage}} is not clearly about changing email/phone, SAY NOTHING and immediately return control.\n\nBehavior\n- If the user already provided an email/phone in their last message, extract it, confirm, and store into {{email}} / {{phone}}.\n- If unclear what they want to update, ask which: email, phone, or both.\n- Stay on this node until the requested item(s) are captured and confirmed.\n\nOpening (when not specified yet)\n“Sure thing {{first_name}} — do you want to update your email, phone, or both?”\n\nEmail capture (when needed)\n“Sure thing {{first_name}}, what’s the best email for you?”\n\nPhone capture (when needed)\n“Got it. What’s the best phone number for you?”\n\nConfirm (dynamic)\n- If only email: “Thanks — I have your email as [say email address slowly] {{email}}. Is that correct?”\n- If only phone: “Thanks — I have your phone as [say phone number VERY slowly digit by digit] {{phone}}. Is that correct?”\n- If both: “Thanks — email: [say email address slowly] {{email}} and phone: [say phone number VERY slowly digit by digit] {{phone}}. Are both correct?”\n\nOn “no” or correction\n- Re-ask only for the incorrect item and reconfirm.\n\nSuccess exit\n“Perfect, I’ve updated that.”",
+        "isGlobal": true,
+        "condition": "- If user chose “email”: require {{email}} to be set and confirmed.\n- If user chose “phone”: require {{phone}} to be set and confirmed.\n- If user chose “both”: require {{email}} and {{phone}} to be set and confirmed.",
+        "extractVars": [
+          [
+            "email",
+            "string",
+            "- Accept common formats (e.g., cam@example.com, sarah.jones@work.co, me+home@birdmail.ca)\n- Minimal validation: must contain “@” and a dot in the domain; trim spaces; lowercase storage is fine.\n",
+            true
+          ],
+          [
+            "phone",
+            "string",
+            "- Rule: Accept ONLY 10 digits. Strip all non-digits; if the result is exactly 10 digits, store that 10-digit string in {{phone}} (e.g., 5555555555). If not exactly 10, ask the user to restate as just their phone number with the area code.",
+            true,
+            false
+          ]
+        ],
+        "globalLabel": "Update Contact Info (Email / Phone / Both)",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "globalDescription": " Use when the user asks to change or correct their email or phone, or supplies a new one. Capture into {{email}} and/or {{phone}}, confirm, and only then continue.",
+        "extractVarSettings": {
+          "ignorePrevious": true
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1148.581912436217,
+        "y": 199.6904990705809
+      }
+    },
+    {
+      "id": "97d4f3d6-11fa-482d-86cc-d29cb113cafe",
+      "data": {
+        "name": "User Has Cash Route",
+        "prompt": "",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": true,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": -376.6563065330517,
+        "y": 1987.679298450941
+      }
+    },
+    {
+      "id": "a1c026a4-32aa-4dc8-bd23-9d47df495f5f",
+      "data": {
+        "name": "Friend Realtor, End Call",
+        "prompt": "Say something kind like: \n\nThank you for your time today {{first_name}}. Take care and have a great day!",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "End Call",
+      "position": {
+        "x": 2354.773657862816,
+        "y": 6592.113472861537
+      }
+    },
+    {
+      "id": "810c20b3-1232-4eff-bcbd-ccac85421202",
+      "data": {
+        "name": "Signed Agreement, End Call",
+        "prompt": "Say something kind like: \n\nThank you for your time today {{first_name}}. Take care and have a great day!",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "End Call",
+      "position": {
+        "x": 1768.402212793205,
+        "y": 6611.729690338319
+      }
+    },
+    {
+      "id": "d1c9b1e0-7637-431b-8c83-905bfcb44cd6",
+      "data": {
+        "name": "Success, End Call",
+        "prompt": "Say something kind like: \n\nThank you for your time today {{first_name}}. Take care and have a great day!",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "End Call",
+      "position": {
+        "x": 448.402212793205,
+        "y": 8731.72969033832
+      }
+    },
+    {
+      "id": "4f110f61-bc6f-4ed7-ac0e-6259fb28b7e6",
+      "data": {
+        "name": "Low Budget, End Call",
+        "prompt": "Say something kind like: \n\nThank you for your time today {{first_name}}. Take care and have a great day!",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "End Call",
+      "position": {
+        "x": 1806.144385642562,
+        "y": 4115.399086365215
+      }
+    },
+    {
+      "id": "0cc87653-7061-4d8f-9ac8-11908569a82c",
+      "data": {
+        "name": "Where Does User Live?",
+        "prompt": "Begin by saying \"no worries... either way... if you don't mind me asking...\" in a conversational, affirmative, concise style.\n\nThen in the same tone continue say this: what area do you currently live in?\n\n#### City, Town, Distrinct, ANY PLACE LOCATION IS AN ACCEPTABLE ANSWER\n",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1416.207535572807,
+        "y": 735.2680305100466
+      }
+    },
+    {
+      "id": "bf110ad1-2fed-4920-80de-e9b95b67d868",
+      "data": {
+        "name": "How Long in Current Area",
+        "prompt": "Briefly and positively affirm {{current_area}}. Then in a conversational tone ask how long they’ve lived in their current area.\n\nFirst say something like this:\n{{current_area}} is great. It has 1, 2 and 3. \n\nThen ask something like: \nHow long have you lived in the neighborhood?\n",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1903.754941081081,
+        "y": 739.8472189097175
+      }
+    },
+    {
+      "id": "2f0ee0cb-b34e-4369-9645-332684663230",
+      "data": {
+        "name": "User Dream Area",
+        "prompt": "Briefly and positively affirm their situation so far. \n\nThen ask something like this (stressing IF):\nIf you were to make a move, where would you like to go?\n\n### STAYING IN THE SAME PLACE IS AN ACCEPTABLE ANSWER, WHEN THEY ANSWER MOVE ON TO THE NEXT NODE",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1408.667974519418,
+        "y": 942.1060101391772
+      }
+    },
+    {
+      "id": "6f37dca7-0e9c-4a9d-94a4-652b4f1cfbb9",
+      "data": {
+        "name": "User Move Timeline",
+        "prompt": "Briefly and positively affirm their desired area or that they would like to stay in their current area.\n\nThen ask something like this (stressing IF):\nand again IF you were to move (even in the same area, but into a new home - ONLY SAID FOR SAME AREA) when were you thinking that would that be?",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": false,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "extractVarSettings": {},
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": 1899.573291123169,
+        "y": 944.8043038580513
+      }
+    },
+    {
+      "id": "53735c7c-3512-44bb-95ae-2bce90e6fd49",
+      "data": {
+        "name": "Transfer Entry Node",
+        "prompt": "Say something like this in a natural conversational tone:\n\n...okay here we are. Yes that was me {{first_name}}.",
+        "modelOptions": {
+          "newTemperature": 0.2,
+          "isSMSReturnNode": false,
+          "skipUserResponse": true,
+          "disableEndCallTool": false,
+          "block_interruptions": true,
+          "disableSilenceRepeat": false
+        },
+        "headers": null
+      },
+      "type": "Default",
+      "position": {
+        "x": -6.802972990224532,
+        "y": 271.1310335236832
+      }
+    },
+    {
+      "globalConfig": {
+        "globalPrompt": "If a user asks a particular real estate question not in your regular flow, use the following statement to address the question: \n\n\"Great question {{first_name}}. I don’t want to guess and waste your time—{{agent_name}} is the right person for that. My role is to get clear on what you're looking for. It would really help me out if you could answer a few more quick questions, then I can connect you with {{agent_name}}.\"\n\nAfter stating this, continue where you left off. "
+      },
+      "data": {
+        "headers": null
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "reactflow__edge-1-6fd84d7a-ca95-4ed4-82fd-fd71ad96aaeb",
+      "data": {
+        "label": "User responded",
+        "alwaysPick": true,
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "1",
+      "target": "6fd84d7a-ca95-4ed4-82fd-fd71ad96aaeb"
+    },
+    {
+      "id": "reactflow__edge-7c36dc34-2d0f-484a-aa68-61fcfd6a4bc0-d0e97af9-2408-4749-8fc6-17e5a9162de7",
+      "data": {
+        "label": "Interested",
+        "description": "User responded with positive intent",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "7c36dc34-2d0f-484a-aa68-61fcfd6a4bc0",
+      "target": "d0e97af9-2408-4749-8fc6-17e5a9162de7"
+    },
+    {
+      "id": "reactflow__edge-7c36dc34-2d0f-484a-aa68-61fcfd6a4bc0-d8986b84-e6af-408a-9556-db501ed2fe69",
+      "data": {
+        "label": "No Memory",
+        "description": "User responded with unknown or negative intent.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "7c36dc34-2d0f-484a-aa68-61fcfd6a4bc0",
+      "target": "d8986b84-e6af-408a-9556-db501ed2fe69"
+    },
+    {
+      "id": "reactflow__edge-9820691b-6cfe-4b83-8ff6-739068fa4e0a-275ff515-d2dd-4432-a3a3-8b7722f4258c",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "9820691b-6cfe-4b83-8ff6-739068fa4e0a",
+      "target": "275ff515-d2dd-4432-a3a3-8b7722f4258c"
+    },
+    {
+      "id": "reactflow__edge-d0e97af9-2408-4749-8fc6-17e5a9162de7-a461f3e9-c5f7-4912-bbc1-6b70e26aa7ba",
+      "data": {
+        "label": "Only Foreclosures",
+        "description": "User responded that they are only interested in foreclosures",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "d0e97af9-2408-4749-8fc6-17e5a9162de7",
+      "target": "a461f3e9-c5f7-4912-bbc1-6b70e26aa7ba"
+    },
+    {
+      "id": "reactflow__edge-a461f3e9-c5f7-4912-bbc1-6b70e26aa7ba-836c7065-2989-444c-9f86-c6fd9404d165",
+      "data": {
+        "label": "Does Not Have Cash",
+        "description": "User responded that they do not have cash to buy a foreclosure",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "a461f3e9-c5f7-4912-bbc1-6b70e26aa7ba",
+      "target": "836c7065-2989-444c-9f86-c6fd9404d165"
+    },
+    {
+      "id": "reactflow__edge-836c7065-2989-444c-9f86-c6fd9404d165-3418ab0e-4832-4fcc-abd9-f872f0269efd",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "836c7065-2989-444c-9f86-c6fd9404d165",
+      "target": "3418ab0e-4832-4fcc-abd9-f872f0269efd"
+    },
+    {
+      "id": "reactflow__edge-d0e97af9-2408-4749-8fc6-17e5a9162de7-3418ab0e-4832-4fcc-abd9-f872f0269efd",
+      "data": {
+        "label": "Any Deal",
+        "description": "User responded that they are open to any great deal.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "d0e97af9-2408-4749-8fc6-17e5a9162de7",
+      "target": "3418ab0e-4832-4fcc-abd9-f872f0269efd"
+    },
+    {
+      "id": "reactflow__edge-a461f3e9-c5f7-4912-bbc1-6b70e26aa7ba-3418ab0e-4832-4fcc-abd9-f872f0269efd",
+      "data": {
+        "label": "Will Use Financing",
+        "description": "User responded that they need to use financing to buy a home.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "a461f3e9-c5f7-4912-bbc1-6b70e26aa7ba",
+      "target": "3418ab0e-4832-4fcc-abd9-f872f0269efd"
+    },
+    {
+      "id": "reactflow__edge-3418ab0e-4832-4fcc-abd9-f872f0269efd-f8ec754b-e93e-43bf-8128-59af7d9eaac5",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "3418ab0e-4832-4fcc-abd9-f872f0269efd",
+      "target": "f8ec754b-e93e-43bf-8128-59af7d9eaac5"
+    },
+    {
+      "id": "reactflow__edge-f8ec754b-e93e-43bf-8128-59af7d9eaac5-19bbb38d-2a95-4a37-9f6c-782f956d5237",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "f8ec754b-e93e-43bf-8128-59af7d9eaac5",
+      "target": "19bbb38d-2a95-4a37-9f6c-782f956d5237"
+    },
+    {
+      "id": "reactflow__edge-275ff515-d2dd-4432-a3a3-8b7722f4258c-42858ff8-1029-49fb-af00-d6675adb4122",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "275ff515-d2dd-4432-a3a3-8b7722f4258c",
+      "target": "42858ff8-1029-49fb-af00-d6675adb4122"
+    },
+    {
+      "id": "reactflow__edge-42858ff8-1029-49fb-af00-d6675adb4122-019587a2-465a-4537-b151-e5075c7ef67d",
+      "data": {
+        "label": "Only Foreclosures",
+        "description": "User responded that they are only interested in foreclosures",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "42858ff8-1029-49fb-af00-d6675adb4122",
+      "target": "019587a2-465a-4537-b151-e5075c7ef67d"
+    },
+    {
+      "id": "reactflow__edge-42858ff8-1029-49fb-af00-d6675adb4122-635dc0e0-4371-4834-8e5e-87d5c3870517",
+      "data": {
+        "label": "Any Deal",
+        "description": "User responded that they are open to any great deal.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "42858ff8-1029-49fb-af00-d6675adb4122",
+      "target": "635dc0e0-4371-4834-8e5e-87d5c3870517"
+    },
+    {
+      "id": "reactflow__edge-019587a2-465a-4537-b151-e5075c7ef67d-42994262-81d2-4b4e-9861-f48c806ddb86",
+      "data": {
+        "label": "No Cash",
+        "description": "User responded that they do not have cash to buy a foreclosure",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "019587a2-465a-4537-b151-e5075c7ef67d",
+      "target": "42994262-81d2-4b4e-9861-f48c806ddb86"
+    },
+    {
+      "id": "reactflow__edge-019587a2-465a-4537-b151-e5075c7ef67d-635dc0e0-4371-4834-8e5e-87d5c3870517",
+      "data": {
+        "label": "Has Cash",
+        "description": "User responded that they have cash to buy a home without financing",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "019587a2-465a-4537-b151-e5075c7ef67d",
+      "target": "635dc0e0-4371-4834-8e5e-87d5c3870517"
+    },
+    {
+      "id": "reactflow__edge-42994262-81d2-4b4e-9861-f48c806ddb86-635dc0e0-4371-4834-8e5e-87d5c3870517",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "42994262-81d2-4b4e-9861-f48c806ddb86",
+      "target": "635dc0e0-4371-4834-8e5e-87d5c3870517"
+    },
+    {
+      "id": "reactflow__edge-635dc0e0-4371-4834-8e5e-87d5c3870517-40cd64ce-35a8-4ef7-9acf-1231c58daf4c",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "635dc0e0-4371-4834-8e5e-87d5c3870517",
+      "target": "40cd64ce-35a8-4ef7-9acf-1231c58daf4c"
+    },
+    {
+      "id": "reactflow__edge-40cd64ce-35a8-4ef7-9acf-1231c58daf4c-ec7af8f1-23b3-4f4b-871c-de2b4c24b770",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "40cd64ce-35a8-4ef7-9acf-1231c58daf4c",
+      "target": "ec7af8f1-23b3-4f4b-871c-de2b4c24b770"
+    },
+    {
+      "id": "reactflow__edge-19bbb38d-2a95-4a37-9f6c-782f956d5237-fd6fbdc1-ae98-4b98-a794-41d0f93b4b67",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "19bbb38d-2a95-4a37-9f6c-782f956d5237",
+      "target": "fd6fbdc1-ae98-4b98-a794-41d0f93b4b67"
+    },
+    {
+      "id": "reactflow__edge-521d7966-1bf6-43a7-b981-11bcbca57d10-317a25c3-4993-44cf-83ca-e8fa4f16e690",
+      "data": {
+        "label": "Unknown Financing",
+        "description": "User indicates they are not sure about financing, or the intent is unknown.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "521d7966-1bf6-43a7-b981-11bcbca57d10",
+      "target": "317a25c3-4993-44cf-83ca-e8fa4f16e690"
+    },
+    {
+      "id": "reactflow__edge-521d7966-1bf6-43a7-b981-11bcbca57d10-8ce848fc-0d17-4a26-8970-0787d520cbe7",
+      "data": {
+        "label": "Cash",
+        "description": "User will pay cash for a home",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "521d7966-1bf6-43a7-b981-11bcbca57d10",
+      "target": "8ce848fc-0d17-4a26-8970-0787d520cbe7"
+    },
+    {
+      "id": "reactflow__edge-521d7966-1bf6-43a7-b981-11bcbca57d10-a8d94cd0-809f-485e-9b0e-c56016de2753",
+      "data": {
+        "label": "Financing",
+        "description": "User plans to use financing to purchase a home",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "521d7966-1bf6-43a7-b981-11bcbca57d10",
+      "target": "a8d94cd0-809f-485e-9b0e-c56016de2753"
+    },
+    {
+      "id": "reactflow__edge-a8d94cd0-809f-485e-9b0e-c56016de2753-8ce848fc-0d17-4a26-8970-0787d520cbe7",
+      "data": {
+        "label": "Has Lender",
+        "description": "User already has a lender or mortgage broker they are working with",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "a8d94cd0-809f-485e-9b0e-c56016de2753",
+      "target": "8ce848fc-0d17-4a26-8970-0787d520cbe7"
+    },
+    {
+      "id": "reactflow__edge-a8d94cd0-809f-485e-9b0e-c56016de2753-fec6f0a5-f486-4517-a70e-7219c2cd0e26",
+      "data": {
+        "label": "No Lender",
+        "description": "User is not currently working with a lender",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "a8d94cd0-809f-485e-9b0e-c56016de2753",
+      "target": "fec6f0a5-f486-4517-a70e-7219c2cd0e26"
+    },
+    {
+      "id": "reactflow__edge-fec6f0a5-f486-4517-a70e-7219c2cd0e26-8ce848fc-0d17-4a26-8970-0787d520cbe7",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "fec6f0a5-f486-4517-a70e-7219c2cd0e26",
+      "target": "8ce848fc-0d17-4a26-8970-0787d520cbe7"
+    },
+    {
+      "id": "reactflow__edge-8ce848fc-0d17-4a26-8970-0787d520cbe7-fe80a09e-772d-4550-9f9b-96a8bdd88eb6",
+      "data": {
+        "label": "Do Not Own or Rent",
+        "description": "User responded that they do not need to sell their home and they are not on a lease",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "8ce848fc-0d17-4a26-8970-0787d520cbe7",
+      "target": "fe80a09e-772d-4550-9f9b-96a8bdd88eb6"
+    },
+    {
+      "id": "reactflow__edge-8ce848fc-0d17-4a26-8970-0787d520cbe7-0e0863fa-c7fc-406d-97bb-e0dfd14578f8",
+      "data": {
+        "label": "Need to Sell",
+        "description": "User responded that they need to sell their home before moving",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "8ce848fc-0d17-4a26-8970-0787d520cbe7",
+      "target": "0e0863fa-c7fc-406d-97bb-e0dfd14578f8"
+    },
+    {
+      "id": "reactflow__edge-8ce848fc-0d17-4a26-8970-0787d520cbe7-b52df374-e39c-4883-9e7f-7e96fc43c973",
+      "data": {
+        "label": "Renter",
+        "description": "User responded that they are current renting.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "8ce848fc-0d17-4a26-8970-0787d520cbe7",
+      "target": "b52df374-e39c-4883-9e7f-7e96fc43c973"
+    },
+    {
+      "id": "reactflow__edge-0e0863fa-c7fc-406d-97bb-e0dfd14578f8-fa5a822b-cf40-4415-a8b3-c225bdc181e2",
+      "data": {
+        "label": "Intends to Sell",
+        "description": "User responded with positive intent to sell",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "0e0863fa-c7fc-406d-97bb-e0dfd14578f8",
+      "target": "fa5a822b-cf40-4415-a8b3-c225bdc181e2"
+    },
+    {
+      "id": "reactflow__edge-0e0863fa-c7fc-406d-97bb-e0dfd14578f8-5159ab51-b908-4bc4-be8e-5424678dcff4",
+      "data": {
+        "label": "Wait to Sell",
+        "description": "User wants to wait to sell for a reason other than renovations",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "0e0863fa-c7fc-406d-97bb-e0dfd14578f8",
+      "target": "5159ab51-b908-4bc4-be8e-5424678dcff4"
+    },
+    {
+      "id": "reactflow__edge-0e0863fa-c7fc-406d-97bb-e0dfd14578f8-d18ec50f-34e6-4db0-bc61-9c06a0151757",
+      "data": {
+        "label": "Renovation Before Sell",
+        "description": "User wants to renovate their home before selling. Shortform for renovation is RENO.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "0e0863fa-c7fc-406d-97bb-e0dfd14578f8",
+      "target": "d18ec50f-34e6-4db0-bc61-9c06a0151757"
+    },
+    {
+      "id": "reactflow__edge-d18ec50f-34e6-4db0-bc61-9c06a0151757-cd8ed0b6-7aab-49a5-9334-bee8c81af823",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "d18ec50f-34e6-4db0-bc61-9c06a0151757",
+      "target": "cd8ed0b6-7aab-49a5-9334-bee8c81af823"
+    },
+    {
+      "id": "reactflow__edge-cd8ed0b6-7aab-49a5-9334-bee8c81af823-ac670660-3a36-41b3-9f65-d66b52251299",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "cd8ed0b6-7aab-49a5-9334-bee8c81af823",
+      "target": "ac670660-3a36-41b3-9f65-d66b52251299"
+    },
+    {
+      "id": "reactflow__edge-5159ab51-b908-4bc4-be8e-5424678dcff4-ac670660-3a36-41b3-9f65-d66b52251299",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "5159ab51-b908-4bc4-be8e-5424678dcff4",
+      "target": "ac670660-3a36-41b3-9f65-d66b52251299"
+    },
+    {
+      "id": "reactflow__edge-ac670660-3a36-41b3-9f65-d66b52251299-e7f6b367-d28d-421f-918c-eed827d16804",
+      "data": {
+        "label": "Has Realtor",
+        "description": "User responded that they are working with a realtor",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "ac670660-3a36-41b3-9f65-d66b52251299",
+      "target": "e7f6b367-d28d-421f-918c-eed827d16804"
+    },
+    {
+      "id": "reactflow__edge-ac670660-3a36-41b3-9f65-d66b52251299-9e42023b-cfa7-4850-8d63-72aebe2a1d3f",
+      "data": {
+        "label": "Realtor Friend",
+        "description": "User responded that they have a friend who is a realtor or a friend who is in the business.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "ac670660-3a36-41b3-9f65-d66b52251299",
+      "target": "9e42023b-cfa7-4850-8d63-72aebe2a1d3f"
+    },
+    {
+      "id": "reactflow__edge-ac670660-3a36-41b3-9f65-d66b52251299-0585a49a-cffa-41a2-a2e3-52ae217bd2ec",
+      "data": {
+        "label": "No Realtor",
+        "description": "User responded that they are not working with a realtor or that the intent is unknown",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "ac670660-3a36-41b3-9f65-d66b52251299",
+      "target": "0585a49a-cffa-41a2-a2e3-52ae217bd2ec"
+    },
+    {
+      "id": "reactflow__edge-e7f6b367-d28d-421f-918c-eed827d16804-83e91242-7b06-4a8b-8d7c-d416018885e9",
+      "data": {
+        "label": "Yes Signed Agreement",
+        "description": "User responded that they have signed an agreement with a realtor in the last 3-6 months",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "e7f6b367-d28d-421f-918c-eed827d16804",
+      "target": "83e91242-7b06-4a8b-8d7c-d416018885e9"
+    },
+    {
+      "id": "reactflow__edge-e7f6b367-d28d-421f-918c-eed827d16804-0585a49a-cffa-41a2-a2e3-52ae217bd2ec",
+      "data": {
+        "label": "No Signed Agreement",
+        "description": "User responded that they have not signed an agreement with another realtor in the last 6 months",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "e7f6b367-d28d-421f-918c-eed827d16804",
+      "target": "0585a49a-cffa-41a2-a2e3-52ae217bd2ec"
+    },
+    {
+      "id": "reactflow__edge-9e42023b-cfa7-4850-8d63-72aebe2a1d3f-0585a49a-cffa-41a2-a2e3-52ae217bd2ec",
+      "data": {
+        "label": "Open to Meet",
+        "description": "User responded that they are open to meeting with one of our agents",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "9e42023b-cfa7-4850-8d63-72aebe2a1d3f",
+      "target": "0585a49a-cffa-41a2-a2e3-52ae217bd2ec"
+    },
+    {
+      "id": "reactflow__edge-9e42023b-cfa7-4850-8d63-72aebe2a1d3f-d8fe10e0-9ec4-4114-a412-ac31fd639cf5",
+      "data": {
+        "label": "On the Fence",
+        "description": "User responded with an intent that they are uncertain of meeting with one of our agents or their intent is unknown.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "9e42023b-cfa7-4850-8d63-72aebe2a1d3f",
+      "target": "d8fe10e0-9ec4-4114-a412-ac31fd639cf5"
+    },
+    {
+      "id": "reactflow__edge-d8fe10e0-9ec4-4114-a412-ac31fd639cf5-0585a49a-cffa-41a2-a2e3-52ae217bd2ec",
+      "data": {
+        "label": "Open to Meet",
+        "description": "User responded that they are open to chatting with our team",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "d8fe10e0-9ec4-4114-a412-ac31fd639cf5",
+      "target": "0585a49a-cffa-41a2-a2e3-52ae217bd2ec"
+    },
+    {
+      "id": "reactflow__edge-d8fe10e0-9ec4-4114-a412-ac31fd639cf5-91442ea8-5f06-473b-bf5c-11957efb5c37",
+      "data": {
+        "label": "Committed to Friend",
+        "description": "User responded that they only want to work with their friend in the business / the realtor friend.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "d8fe10e0-9ec4-4114-a412-ac31fd639cf5",
+      "target": "91442ea8-5f06-473b-bf5c-11957efb5c37"
+    },
+    {
+      "id": "reactflow__edge-0585a49a-cffa-41a2-a2e3-52ae217bd2ec-9a6dedc7-5de0-41ba-b515-10759981381d",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "0585a49a-cffa-41a2-a2e3-52ae217bd2ec",
+      "target": "9a6dedc7-5de0-41ba-b515-10759981381d"
+    },
+    {
+      "id": "reactflow__edge-9a6dedc7-5de0-41ba-b515-10759981381d-07a9cae5-17fc-420e-8f31-d0caf1c2ad30",
+      "data": {
+        "label": "Unsure",
+        "description": "User responds that they need to think about it",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "9a6dedc7-5de0-41ba-b515-10759981381d",
+      "target": "07a9cae5-17fc-420e-8f31-d0caf1c2ad30"
+    },
+    {
+      "id": "reactflow__edge-07a9cae5-17fc-420e-8f31-d0caf1c2ad30-60a5f152-8d5d-4e70-89cb-e9637c413f71",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "07a9cae5-17fc-420e-8f31-d0caf1c2ad30",
+      "target": "60a5f152-8d5d-4e70-89cb-e9637c413f71"
+    },
+    {
+      "id": "reactflow__edge-56bfc48b-fe85-4527-bcf7-a806077fe0c6-10be2e15-b9e8-42d3-bdaa-6b51c0a5d1c6",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "56bfc48b-fe85-4527-bcf7-a806077fe0c6",
+      "target": "10be2e15-b9e8-42d3-bdaa-6b51c0a5d1c6"
+    },
+    {
+      "id": "reactflow__edge-6fd84d7a-ca95-4ed4-82fd-fd71ad96aaeb-7c36dc34-2d0f-484a-aa68-61fcfd6a4bc0",
+      "data": {
+        "label": "User responded",
+        "alwaysPick": true,
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "6fd84d7a-ca95-4ed4-82fd-fd71ad96aaeb",
+      "target": "7c36dc34-2d0f-484a-aa68-61fcfd6a4bc0"
+    },
+    {
+      "id": "reactflow__edge-1702d28e-5be8-40dd-b103-b9f1de5c2a83-87bb65b3-4219-4696-b473-25cf7d246c99",
+      "data": {
+        "label": "Budget Works",
+        "description": "User responded that they actually can afford the mentioned price, the have changed their mind, they have correctly their new price range budget",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "1702d28e-5be8-40dd-b103-b9f1de5c2a83",
+      "target": "87bb65b3-4219-4696-b473-25cf7d246c99"
+    },
+    {
+      "id": "reactflow__edge-87bb65b3-4219-4696-b473-25cf7d246c99-521d7966-1bf6-43a7-b981-11bcbca57d10",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "87bb65b3-4219-4696-b473-25cf7d246c99",
+      "target": "521d7966-1bf6-43a7-b981-11bcbca57d10"
+    },
+    {
+      "id": "reactflow__edge-fa5a822b-cf40-4415-a8b3-c225bdc181e2-ac670660-3a36-41b3-9f65-d66b52251299",
+      "data": {
+        "label": "User Positive",
+        "description": "User says anything affirmative with positive intent",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "fa5a822b-cf40-4415-a8b3-c225bdc181e2",
+      "target": "ac670660-3a36-41b3-9f65-d66b52251299"
+    },
+    {
+      "id": "reactflow__edge-9a6dedc7-5de0-41ba-b515-10759981381d-60a5f152-8d5d-4e70-89cb-e9637c413f71",
+      "data": {
+        "label": "Interested",
+        "description": "User responded positively that they want to move forward and are interested.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "9a6dedc7-5de0-41ba-b515-10759981381d",
+      "target": "60a5f152-8d5d-4e70-89cb-e9637c413f71"
+    },
+    {
+      "id": "reactflow__edge-fe80a09e-772d-4550-9f9b-96a8bdd88eb6-fa5a822b-cf40-4415-a8b3-c225bdc181e2",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "fe80a09e-772d-4550-9f9b-96a8bdd88eb6",
+      "target": "fa5a822b-cf40-4415-a8b3-c225bdc181e2"
+    },
+    {
+      "id": "reactflow__edge-b52df374-e39c-4883-9e7f-7e96fc43c973-fe361eab-8c7b-4e11-b43b-0ee43abd51a2",
+      "data": {
+        "label": "Month to Month",
+        "description": "User responded that they are in a month to month lease.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "b52df374-e39c-4883-9e7f-7e96fc43c973",
+      "target": "fe361eab-8c7b-4e11-b43b-0ee43abd51a2"
+    },
+    {
+      "id": "reactflow__edge-b52df374-e39c-4883-9e7f-7e96fc43c973-840aa82e-ba3e-47e0-abcd-2ae7a8764729",
+      "data": {
+        "label": "Long Term Lease",
+        "description": "User responded that they are in a long term lease.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "b52df374-e39c-4883-9e7f-7e96fc43c973",
+      "target": "840aa82e-ba3e-47e0-abcd-2ae7a8764729"
+    },
+    {
+      "id": "reactflow__edge-fe361eab-8c7b-4e11-b43b-0ee43abd51a2-fa5a822b-cf40-4415-a8b3-c225bdc181e2",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "fe361eab-8c7b-4e11-b43b-0ee43abd51a2",
+      "target": "fa5a822b-cf40-4415-a8b3-c225bdc181e2"
+    },
+    {
+      "id": "reactflow__edge-840aa82e-ba3e-47e0-abcd-2ae7a8764729-fa5a822b-cf40-4415-a8b3-c225bdc181e2",
+      "data": {
+        "label": "Can End Lease Early",
+        "description": "User responded that they are able to break the lease or intent is unknown.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "840aa82e-ba3e-47e0-abcd-2ae7a8764729",
+      "target": "fa5a822b-cf40-4415-a8b3-c225bdc181e2"
+    },
+    {
+      "id": "reactflow__edge-840aa82e-ba3e-47e0-abcd-2ae7a8764729-2dd364d0-c36c-4510-9ca5-d4ce7745dac5",
+      "data": {
+        "label": "Cannot Break Lease",
+        "description": "User responded that they are unable to break the lease.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "840aa82e-ba3e-47e0-abcd-2ae7a8764729",
+      "target": "2dd364d0-c36c-4510-9ca5-d4ce7745dac5"
+    },
+    {
+      "id": "reactflow__edge-2dd364d0-c36c-4510-9ca5-d4ce7745dac5-fa5a822b-cf40-4415-a8b3-c225bdc181e2",
+      "data": {
+        "label": "< 3 Months Lease",
+        "description": "User responded that they have less than 3 months on their lease or intent is unclear.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "2dd364d0-c36c-4510-9ca5-d4ce7745dac5",
+      "target": "fa5a822b-cf40-4415-a8b3-c225bdc181e2"
+    },
+    {
+      "id": "reactflow__edge-2dd364d0-c36c-4510-9ca5-d4ce7745dac5-b655eccd-0e72-4a54-9426-fbade524b331",
+      "data": {
+        "label": "> 3 Months Lease",
+        "description": "User responded that they have more than 3 months left in their lease.",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "2dd364d0-c36c-4510-9ca5-d4ce7745dac5",
+      "target": "b655eccd-0e72-4a54-9426-fbade524b331"
+    },
+    {
+      "id": "reactflow__edge-b655eccd-0e72-4a54-9426-fbade524b331-2910e0db-a000-4758-b849-0daec7379999",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "b655eccd-0e72-4a54-9426-fbade524b331",
+      "target": "2910e0db-a000-4758-b849-0daec7379999"
+    },
+    {
+      "id": "reactflow__edge-317a25c3-4993-44cf-83ca-e8fa4f16e690-8ce848fc-0d17-4a26-8970-0787d520cbe7",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "317a25c3-4993-44cf-83ca-e8fa4f16e690",
+      "target": "8ce848fc-0d17-4a26-8970-0787d520cbe7"
+    },
+    {
+      "id": "reactflow__edge-c04e7631-1ad8-49d6-80b7-9d191ccd6d2d-56bfc48b-fe85-4527-bcf7-a806077fe0c6",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "c04e7631-1ad8-49d6-80b7-9d191ccd6d2d",
+      "target": "56bfc48b-fe85-4527-bcf7-a806077fe0c6"
+    },
+    {
+      "id": "reactflow__edge-d8986b84-e6af-408a-9556-db501ed2fe69-d0e97af9-2408-4749-8fc6-17e5a9162de7",
+      "data": {
+        "label": "Interested",
+        "description": "User responded with positive intent",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "d8986b84-e6af-408a-9556-db501ed2fe69",
+      "target": "d0e97af9-2408-4749-8fc6-17e5a9162de7"
+    },
+    {
+      "id": "reactflow__edge-10be2e15-b9e8-42d3-bdaa-6b51c0a5d1c6-521d7966-1bf6-43a7-b981-11bcbca57d10",
+      "data": {
+        "label": "price_range greater than 250000",
+        "condition": [
+          {
+            "field": "price_range",
+            "value": "250000",
+            "isGroup": false,
+            "operator": "greater than"
+          }
+        ],
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "10be2e15-b9e8-42d3-bdaa-6b51c0a5d1c6",
+      "target": "521d7966-1bf6-43a7-b981-11bcbca57d10"
+    },
+    {
+      "id": "reactflow__edge-10be2e15-b9e8-42d3-bdaa-6b51c0a5d1c6-1702d28e-5be8-40dd-b103-b9f1de5c2a83",
+      "data": {
+        "label": "price_range less than 250000",
+        "condition": [
+          {
+            "field": "price_range",
+            "value": "250000",
+            "isGroup": false,
+            "operator": "less than"
+          }
+        ],
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "10be2e15-b9e8-42d3-bdaa-6b51c0a5d1c6",
+      "target": "1702d28e-5be8-40dd-b103-b9f1de5c2a83"
+    },
+    {
+      "id": "reactflow__edge-a981b451-3acb-4763-ae38-edc1a88f7239-8cc7ac7e-ce3c-4ff7-b981-bdc8ca747cf2",
+      "data": {
+        "label": "User responded",
+        "alwaysPick": true,
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "a981b451-3acb-4763-ae38-edc1a88f7239",
+      "target": "8cc7ac7e-ce3c-4ff7-b981-bdc8ca747cf2"
+    },
+    {
+      "id": "reactflow__edge-8e853286-dc09-4624-a2a9-6317e71ab32d-859dca92-ff98-4bb7-9990-6ff98c1efa25",
+      "data": {
+        "label": "Default/Webhook Completion",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "8e853286-dc09-4624-a2a9-6317e71ab32d",
+      "target": "859dca92-ff98-4bb7-9990-6ff98c1efa25"
+    },
+    {
+      "id": "reactflow__edge-859dca92-ff98-4bb7-9990-6ff98c1efa25-a8533e33-127e-4e97-84b1-2182ec2d0e50",
+      "data": {
+        "label": "User responded",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "859dca92-ff98-4bb7-9990-6ff98c1efa25",
+      "target": "a8533e33-127e-4e97-84b1-2182ec2d0e50"
+    },
+    {
+      "id": "reactflow__edge-9f4e6428-8f24-44af-aa91-df26425e0d83-06fe01f2-f0c9-4958-b760-8d3ddf88fcb0",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "9f4e6428-8f24-44af-aa91-df26425e0d83",
+      "target": "06fe01f2-f0c9-4958-b760-8d3ddf88fcb0"
+    },
+    {
+      "id": "reactflow__edge-fecd4087-e3e6-4e6b-a7df-479bd85d0c5e-8e853286-dc09-4624-a2a9-6317e71ab32d",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "fecd4087-e3e6-4e6b-a7df-479bd85d0c5e",
+      "target": "8e853286-dc09-4624-a2a9-6317e71ab32d"
+    },
+    {
+      "id": "reactflow__edge-60a5f152-8d5d-4e70-89cb-e9637c413f71-fecd4087-e3e6-4e6b-a7df-479bd85d0c5e",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "60a5f152-8d5d-4e70-89cb-e9637c413f71",
+      "target": "fecd4087-e3e6-4e6b-a7df-479bd85d0c5e"
+    },
+    {
+      "id": "reactflow__edge-a461f3e9-c5f7-4912-bbc1-6b70e26aa7ba-97d4f3d6-11fa-482d-86cc-d29cb113cafe",
+      "data": {
+        "label": "Has Cash",
+        "description": "User responded that they have cash to buy a home without financing",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "a461f3e9-c5f7-4912-bbc1-6b70e26aa7ba",
+      "target": "97d4f3d6-11fa-482d-86cc-d29cb113cafe"
+    },
+    {
+      "id": "reactflow__edge-97d4f3d6-11fa-482d-86cc-d29cb113cafe-3418ab0e-4832-4fcc-abd9-f872f0269efd",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "97d4f3d6-11fa-482d-86cc-d29cb113cafe",
+      "target": "3418ab0e-4832-4fcc-abd9-f872f0269efd"
+    },
+    {
+      "id": "reactflow__edge-a8533e33-127e-4e97-84b1-2182ec2d0e50-9f4e6428-8f24-44af-aa91-df26425e0d83",
+      "data": {
+        "label": "status contains accepted",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "a8533e33-127e-4e97-84b1-2182ec2d0e50",
+      "target": "9f4e6428-8f24-44af-aa91-df26425e0d83"
+    },
+    {
+      "id": "reactflow__edge-a8533e33-127e-4e97-84b1-2182ec2d0e50-a8533e33-127e-4e97-84b1-2182ec2d0e50",
+      "data": {
+        "label": "status !contains accepted",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "a8533e33-127e-4e97-84b1-2182ec2d0e50",
+      "target": "a8533e33-127e-4e97-84b1-2182ec2d0e50"
+    },
+    {
+      "id": "reactflow__edge-fd6fbdc1-ae98-4b98-a794-41d0f93b4b67-c04e7631-1ad8-49d6-80b7-9d191ccd6d2d",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "fd6fbdc1-ae98-4b98-a794-41d0f93b4b67",
+      "target": "c04e7631-1ad8-49d6-80b7-9d191ccd6d2d"
+    },
+    {
+      "id": "reactflow__edge-ec7af8f1-23b3-4f4b-871c-de2b4c24b770-c04e7631-1ad8-49d6-80b7-9d191ccd6d2d",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "ec7af8f1-23b3-4f4b-871c-de2b4c24b770",
+      "target": "c04e7631-1ad8-49d6-80b7-9d191ccd6d2d"
+    },
+    {
+      "id": "reactflow__edge-83e91242-7b06-4a8b-8d7c-d416018885e9-810c20b3-1232-4eff-bcbd-ccac85421202",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "83e91242-7b06-4a8b-8d7c-d416018885e9",
+      "target": "810c20b3-1232-4eff-bcbd-ccac85421202"
+    },
+    {
+      "id": "reactflow__edge-91442ea8-5f06-473b-bf5c-11957efb5c37-a1c026a4-32aa-4dc8-bd23-9d47df495f5f",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "91442ea8-5f06-473b-bf5c-11957efb5c37",
+      "target": "a1c026a4-32aa-4dc8-bd23-9d47df495f5f"
+    },
+    {
+      "id": "reactflow__edge-06fe01f2-f0c9-4958-b760-8d3ddf88fcb0-d1c9b1e0-7637-431b-8c83-905bfcb44cd6",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "06fe01f2-f0c9-4958-b760-8d3ddf88fcb0",
+      "target": "d1c9b1e0-7637-431b-8c83-905bfcb44cd6"
+    },
+    {
+      "id": "reactflow__edge-3c91ba72-3e88-42f2-91fe-5b83c60e0f6f-4f110f61-bc6f-4ed7-ac0e-6259fb28b7e6",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "3c91ba72-3e88-42f2-91fe-5b83c60e0f6f",
+      "target": "4f110f61-bc6f-4ed7-ac0e-6259fb28b7e6"
+    },
+    {
+      "id": "reactflow__edge-5159ab51-b908-4bc4-be8e-5424678dcff4-d18ec50f-34e6-4db0-bc61-9c06a0151757",
+      "data": {
+        "label": "Reno Before Sell",
+        "description": "User wants to renovate their home before selling",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "5159ab51-b908-4bc4-be8e-5424678dcff4",
+      "target": "d18ec50f-34e6-4db0-bc61-9c06a0151757"
+    },
+    {
+      "id": "reactflow__edge-fa5a822b-cf40-4415-a8b3-c225bdc181e2-e7f6b367-d28d-421f-918c-eed827d16804",
+      "data": {
+        "label": "Has Realtor",
+        "description": "User responded that they are working with a realtor",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "fa5a822b-cf40-4415-a8b3-c225bdc181e2",
+      "target": "e7f6b367-d28d-421f-918c-eed827d16804"
+    },
+    {
+      "id": "reactflow__edge-b655eccd-0e72-4a54-9426-fbade524b331-fa5a822b-cf40-4415-a8b3-c225bdc181e2",
+      "data": {
+        "label": "Insistent",
+        "description": "If user indicates that they want to speak with an agent anyway",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "b655eccd-0e72-4a54-9426-fbade524b331",
+      "target": "fa5a822b-cf40-4415-a8b3-c225bdc181e2"
+    },
+    {
+      "id": "reactflow__edge-d8986b84-e6af-408a-9556-db501ed2fe69-0cc87653-7061-4d8f-9ac8-11908569a82c",
+      "data": {
+        "label": "Not Moving",
+        "description": "User not moving, or. not interested",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "d8986b84-e6af-408a-9556-db501ed2fe69",
+      "target": "0cc87653-7061-4d8f-9ac8-11908569a82c"
+    },
+    {
+      "id": "reactflow__edge-0cc87653-7061-4d8f-9ac8-11908569a82c-bf110ad1-2fed-4920-80de-e9b95b67d868",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "0cc87653-7061-4d8f-9ac8-11908569a82c",
+      "target": "bf110ad1-2fed-4920-80de-e9b95b67d868"
+    },
+    {
+      "id": "reactflow__edge-bf110ad1-2fed-4920-80de-e9b95b67d868-2f0ee0cb-b34e-4369-9645-332684663230",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "bf110ad1-2fed-4920-80de-e9b95b67d868",
+      "target": "2f0ee0cb-b34e-4369-9645-332684663230"
+    },
+    {
+      "id": "reactflow__edge-2f0ee0cb-b34e-4369-9645-332684663230-6f37dca7-0e9c-4a9d-94a4-652b4f1cfbb9",
+      "data": {
+        "label": "User responded",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "2f0ee0cb-b34e-4369-9645-332684663230",
+      "target": "6f37dca7-0e9c-4a9d-94a4-652b4f1cfbb9"
+    },
+    {
+      "id": "reactflow__edge-6f37dca7-0e9c-4a9d-94a4-652b4f1cfbb9-275ff515-d2dd-4432-a3a3-8b7722f4258c",
+      "data": {
+        "label": "User responded",
+        "description": "",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "6f37dca7-0e9c-4a9d-94a4-652b4f1cfbb9",
+      "target": "275ff515-d2dd-4432-a3a3-8b7722f4258c"
+    },
+    {
+      "id": "reactflow__edge-1702d28e-5be8-40dd-b103-b9f1de5c2a83-3c91ba72-3e88-42f2-91fe-5b83c60e0f6f",
+      "data": {
+        "label": "Yes to List",
+        "description": "User responds that they would like to be added to list, or the user responds with unknown intent or does not respond at all. \n\nTHE USER HAS NOT CHANGED THEIR BUDGET",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "1702d28e-5be8-40dd-b103-b9f1de5c2a83",
+      "target": "3c91ba72-3e88-42f2-91fe-5b83c60e0f6f"
+    },
+    {
+      "id": "reactflow__edge-53735c7c-3512-44bb-95ae-2bce90e6fd49-7c36dc34-2d0f-484a-aa68-61fcfd6a4bc0",
+      "data": {
+        "label": "User responded",
+        "isHighlighted": false
+      },
+      "type": "custom",
+      "source": "53735c7c-3512-44bb-95ae-2bce90e6fd49",
+      "target": "7c36dc34-2d0f-484a-aa68-61fcfd6a4bc0"
+    }
+  ]
+}
